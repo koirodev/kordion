@@ -8,8 +8,8 @@ const version = "2.0.0";
 const date = "November 08, 2024";
 const header = `
 /*
- * Kardion ${version}
- * https://github.com/koirodev/kardion
+ * Kordion ${version}
+ * https://github.com/koirodev/kordion
  *
  * Copyright 2024 Vitaly Koiro
  *

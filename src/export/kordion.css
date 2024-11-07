@@ -1,0 +1,64 @@
+
+/*
+ * Kordion 2.0.0
+ * https://github.com/koirodev/kordion
+ *
+ * Copyright 2024 Vitaly Koiro
+ *
+ * Released under the MIT License
+ *
+ * Released on: November 08, 2024
+*/
+:root {
+  --kordion-speed: 0.35s;
+  --kordion-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --kordion-animation: var(--kordion-speed) var(--kordion-ease);
+  --kordion-icon-color-hover: #2bfa92;
+}
+
+[data-kordion-hidden] {
+  padding-top: 0;
+  height: 0;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  overflow: hidden;
+  -webkit-transition: height var(--kordion-animation), padding-top var(--kordion-animation);
+  transition: height var(--kordion-animation), padding-top var(--kordion-animation);
+}
+
+[data-kordion-current] {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+}
+
+[data-kordion-current] > .icon {
+  position: relative;
+  z-index: 2;
+  margin-left: auto;
+  -webkit-transition: fill var(--kordion-animation), -webkit-transform var(--kordion-animation);
+  transition: fill var(--kordion-animation), -webkit-transform var(--kordion-animation);
+  transition: transform var(--kordion-animation), fill var(--kordion-animation);
+  transition: transform var(--kordion-animation), fill var(--kordion-animation), -webkit-transform var(--kordion-animation);
+  pointer-events: all;
+}
+
+@media (any-hover: hover) {
+  [data-kordion-current] > .icon:hover {
+    fill: var(--kordion-icon-color-hover);
+  }
+}
+
+[data-kordion-content] {
+  padding-top: 0;
+  -webkit-transition: padding-top var(--kordion-animation);
+  transition: padding-top var(--kordion-animation);
+}
+
+.js-kordion-active > [data-kordion-current] > .icon {
+  -webkit-transform: rotate(180deg);
+      -ms-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInZhcnMvX2FsbC5zY3NzIiwiaW5kZXguc2NzcyIsImdsb2JhbC9fY29tbW9uLnNjc3MiLCJtaXhpbnMvX2Rpc2FibGUtbW9iLWhvdmVyLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxzQkFBQTtFQ0NGLGdEREFFO0VDQ0YsNkREQUU7RUFDQSxtQ0FBQTtBQ0NGOztBQ0xBO0VBQ0UsY0FBQTtFQUNBLFNBQUE7RUFDQSwrQkFBQTtVQUFBLHVCQUFBO0VBRUEsZ0JBQUE7RUFFQSx5RkFBQTtFQUFBLGlGQUFBO0FETUY7O0FDRkE7RUFDRSxvQkFBQTtFQUFBLG9CQUFBO0VBQUEsYUFBQTtFQUVBLGVBQUE7QURJRjs7QUNGRTtFQUNFLGtCQUFBO0VBQ0EsVUFBQTtFQUNBLGlCQUFBO0VBRUEsNkZBQUE7RUFBQSxxRkFBQTtFQUFBLDZFQUFBO0VBQUEseUhBQUE7RUFHQSxtQkFBQTtBRENKOztBRXhCRTtFQUNFO0lEeUJFLHFDQUFBO0VERUo7QUFDRjs7QUNFQTtFQUNFLGNBQUE7RUFFQSx3REFBQTtFQUFBLGdEQUFBO0FEQUY7O0FDS0k7RUFDRSxpQ0FBQTtNQUFBLDZCQUFBO1VBQUEseUJBQUE7QURGTiIsImZpbGUiOiJrb3JkaW9uLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIjpyb290IHtcbiAgLS1rb3JkaW9uLXNwZWVkOiAwLjM1cztcbiAgLS1rb3JkaW9uLWVhc2U6IGN1YmljLWJlemllcigwLjI1LCAwLjEsIDAuMjUsIDEpO1xuICAtLWtvcmRpb24tYW5pbWF0aW9uOiB2YXIoLS1rb3JkaW9uLXNwZWVkKSB2YXIoLS1rb3JkaW9uLWVhc2UpO1xuICAtLWtvcmRpb24taWNvbi1jb2xvci1ob3ZlcjogIzJiZmE5Mjtcbn1cbiIsIkBpbXBvcnQgXCJtaXhpbnNcIjtcclxuXHJcbkBpbXBvcnQgXCJ2YXJzXCI7XHJcbkBpbXBvcnQgXCJnbG9iYWxcIjtcclxuIiwiW2RhdGEta29yZGlvbi1oaWRkZW5dIHtcbiAgcGFkZGluZy10b3A6IDA7XG4gIGhlaWdodDogMDtcbiAgYm94LXNpemluZzogY29udGVudC1ib3g7XG5cbiAgb3ZlcmZsb3c6IGhpZGRlbjtcblxuICB0cmFuc2l0aW9uOiBoZWlnaHQgdmFyKC0ta29yZGlvbi1hbmltYXRpb24pLFxuICAgIHBhZGRpbmctdG9wIHZhcigtLWtvcmRpb24tYW5pbWF0aW9uKTtcbn1cblxuW2RhdGEta29yZGlvbi1jdXJyZW50XSB7XG4gIGRpc3BsYXk6IGZsZXg7XG5cbiAgY3Vyc29yOiBwb2ludGVyO1xuXG4gICYgPiAuaWNvbiB7XG4gICAgcG9zaXRpb246IHJlbGF0aXZlO1xuICAgIHotaW5kZXg6IDI7XG4gICAgbWFyZ2luLWxlZnQ6IGF1dG87XG5cbiAgICB0cmFuc2l0aW9uOiB0cmFuc2Zvcm0gdmFyKC0ta29yZGlvbi1hbmltYXRpb24pLFxuICAgICAgZmlsbCB2YXIoLS1rb3JkaW9uLWFuaW1hdGlvbik7XG5cbiAgICBwb2ludGVyLWV2ZW50czogYWxsO1xuXG4gICAgQGluY2x1ZGUgaG92ZXIge1xuICAgICAgZmlsbDogdmFyKC0ta29yZGlvbi1pY29uLWNvbG9yLWhvdmVyKTtcbiAgICB9XG4gIH1cbn1cblxuW2RhdGEta29yZGlvbi1jb250ZW50XSB7XG4gIHBhZGRpbmctdG9wOiAwO1xuXG4gIHRyYW5zaXRpb246IHBhZGRpbmctdG9wIHZhcigtLWtvcmRpb24tYW5pbWF0aW9uKTtcbn1cblxuLmpzLWtvcmRpb24tYWN0aXZlIHtcbiAgJiA+IFtkYXRhLWtvcmRpb24tY3VycmVudF0ge1xuICAgICYgPiAuaWNvbiB7XG4gICAgICB0cmFuc2Zvcm06IHJvdGF0ZSgxODBkZWcpO1xuICAgIH1cbiAgfVxufVxuIiwiQG1peGluIGhvdmVyIHtcclxuICBAbWVkaWEgKGFueS1ob3ZlcjogaG92ZXIpIHtcclxuICAgICY6aG92ZXIge1xyXG4gICAgICBAY29udGVudDtcclxuICAgIH1cclxuICB9XHJcbn1cclxuIl19 */

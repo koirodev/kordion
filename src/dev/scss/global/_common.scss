@@ -1,15 +1,15 @@
-[data-kardion-hidden] {
+[data-kordion-hidden] {
   padding-top: 0;
   height: 0;
   box-sizing: content-box;
 
   overflow: hidden;
 
-  transition: height var(--kardion-animation),
-    padding-top var(--kardion-animation);
+  transition: height var(--kordion-animation),
+    padding-top var(--kordion-animation);
 }
 
-[data-kardion-current] {
+[data-kordion-current] {
   display: flex;
 
   cursor: pointer;
@@ -19,25 +19,25 @@
     z-index: 2;
     margin-left: auto;
 
-    transition: transform var(--kardion-animation),
-      fill var(--kardion-animation);
+    transition: transform var(--kordion-animation),
+      fill var(--kordion-animation);
 
     pointer-events: all;
 
     @include hover {
-      fill: var(--kardion-icon-color-hover);
+      fill: var(--kordion-icon-color-hover);
     }
   }
 }
 
-[data-kardion-content] {
+[data-kordion-content] {
   padding-top: 0;
 
-  transition: padding-top var(--kardion-animation);
+  transition: padding-top var(--kordion-animation);
 }
 
-.js-kardion-active {
-  & > [data-kardion-current] {
+.js-kordion-active {
+  & > [data-kordion-current] {
     & > .icon {
       transform: rotate(180deg);
     }

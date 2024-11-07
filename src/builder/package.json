@@ -1,5 +1,5 @@
 {
-  "name": "kardion-builder",
+  "name": "kordion-builder",
   "type": "module",
   "devDependencies": {
     "@csstools/postcss-is-pseudo-class": "^5.0.0",

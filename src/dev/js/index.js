@@ -1,19 +1,19 @@
-class Kardion {
-  constructor(kardion, options = {}) {
-    if (!kardion) {
-      console.error("No kardion selector provided!");
+class Kordion {
+  constructor(kordion, options = {}) {
+    if (!kordion) {
+      console.error("No kordion selector provided!");
       return;
     }
 
     // Default accordion settings
     const defaultOptions = {
-      content: "[data-kardion-content]",
-      hidden: "[data-kardion-hidden]",
-      current: "[data-kardion-current]",
-      icon: "[data-kardion-icon]",
-      notClose: "[data-kardion-not-close]",
-      container: ["[data-kardion-container]", ".section"],
-      activeClass: "js-kardion-active",
+      content: "[data-kordion-content]",
+      hidden: "[data-kordion-hidden]",
+      current: "[data-kordion-current]",
+      icon: "[data-kordion-icon]",
+      notClose: "[data-kordion-not-close]",
+      container: ["[data-kordion-container]", ".section"],
+      activeClass: "js-kordion-active",
       iconClass: ".icon",
       speed: 350,
       iconPath: "/assets/templates/img/sprite.svg#",
@@ -21,105 +21,105 @@ class Kardion {
     };
 
     this.settings = { ...defaultOptions, ...options };
-    this.kardion = kardion;
+    this.kordion = kordion;
 
     // Initializing Accordions
-    this.initKardions();
+    this.initKordions();
   }
 
-  initKardions() {
-    const kardions = document.querySelectorAll(this.kardion);
-    if (!kardions.length) return;
+  initKordions() {
+    const kordions = document.querySelectorAll(this.kordion);
+    if (!kordions.length) return;
 
-    kardions.forEach((element) => {
-      const kardionInstance = this.createKardionInstance(element);
+    kordions.forEach((element) => {
+      const kordionInstance = this.createKordionInstance(element);
 
       if (speed != 350) {
-        element.style.setProperty("--kardion-speed", `${this.settings.speed / 1000}s`);
+        element.style.setProperty("--kordion-speed", `${this.settings.speed / 1000}s`);
       }
 
-      kardionInstance.current.addEventListener("click", () => {
-        this.handleKardionClick(kardionInstance, element);
+      kordionInstance.current.addEventListener("click", () => {
+        this.handleKordionClick(kordionInstance, element);
       });
 
       if (element.classList.contains(this.settings.activeClass)) {
-        kardionInstance.show();
+        kordionInstance.show();
       }
     });
   }
 
   // Creating an Accordion Instance
-  createKardionInstance(element) {
-    const kardionInstance = {
-      kardion: element,
+  createKordionInstance(element) {
+    const kordionInstance = {
+      kordion: element,
       hidden: element.querySelector(this.settings.hidden),
       content: element.querySelector(this.settings.content),
       current: element.querySelector(this.settings.current),
-      kardionIcon: null,
+      kordionIcon: null,
       iconHidden: null,
       iconShow: null
     };
 
     // Setting up the icon if present
-    if (kardionInstance.current.querySelector(this.settings.icon)) {
-      kardionInstance.kardionIcon = kardionInstance.current.querySelector(this.settings.icon);
-      let iconList = kardionInstance.kardionIcon.getAttribute(this.settings.icon.match(/\[([^\]]+)\]/)[1]);
+    if (kordionInstance.current.querySelector(this.settings.icon)) {
+      kordionInstance.kordionIcon = kordionInstance.current.querySelector(this.settings.icon);
+      let iconList = kordionInstance.kordionIcon.getAttribute(this.settings.icon.match(/\[([^\]]+)\]/)[1]);
       iconList = iconList.substring(1, iconList.length - 1);
       const iconArray = iconList.split(",");
       if (iconArray.length === 2) {
-        kardionInstance.iconHidden = iconArray[0].trim();
-        kardionInstance.iconShow = iconArray[1].trim();
+        kordionInstance.iconHidden = iconArray[0].trim();
+        kordionInstance.iconShow = iconArray[1].trim();
       } else {
-        console.error("Invalid data-kardion-icon attribute");
+        console.error("Invalid data-kordion-icon attribute");
       }
 
       // Cancel default action when clicking on icon
-      kardionInstance.kardionIcon.addEventListener("click", (event) => {
+      kordionInstance.kordionIcon.addEventListener("click", (event) => {
         event.preventDefault();
       });
     }
-    return kardionInstance;
+    return kordionInstance;
   }
 
   // Handling a click on an accordion
-  handleKardionClick(kardionInstance, element) {
-    if (kardionInstance.current.closest(this.settings.content)) {
-      const parentContent = kardionInstance.current.closest(this.settings.hidden);
+  handleKordionClick(kordionInstance, element) {
+    if (kordionInstance.current.closest(this.settings.content)) {
+      const parentContent = kordionInstance.current.closest(this.settings.hidden);
       if (element.classList.contains(this.settings.activeClass)) {
-        this.hideKardion(kardionInstance);
-        parentContent.style.height = `${parentContent.clientHeight - kardionInstance.content.clientHeight}px`;
+        this.hideKordion(kordionInstance);
+        parentContent.style.height = `${parentContent.clientHeight - kordionInstance.content.clientHeight}px`;
       } else {
-        this.showKardion(kardionInstance);
-        parentContent.style.height = `${parentContent.clientHeight + kardionInstance.content.clientHeight}px`;
+        this.showKordion(kordionInstance);
+        parentContent.style.height = `${parentContent.clientHeight + kordionInstance.content.clientHeight}px`;
       }
       return;
     }
 
     // If the accordion does not close when clicking on certain elements
-    if (kardionInstance.current.closest(this.settings.notClose)) {
-      this.toggleKardion(kardionInstance);
+    if (kordionInstance.current.closest(this.settings.notClose)) {
+      this.toggleKordion(kordionInstance);
       return;
     }
 
     // If the accordion is in a container that covers all accordions
-    const containerElement = this.settings.container.find((selector) => kardionInstance.current.closest(selector));
+    const containerElement = this.settings.container.find((selector) => kordionInstance.current.closest(selector));
     if (containerElement) {
-      this.hideAllKardions(kardionInstance.current.closest(containerElement));
+      this.hideAllKordions(kordionInstance.current.closest(containerElement));
     }
 
     // Show or hide the accordion
-    this.toggleKardion(kardionInstance);
-    this.hideNestedKardions(element);
+    this.toggleKordion(kordionInstance);
+    this.hideNestedKordions(element);
   }
 
   // Show accordion
-  showKardion(kardionInstance) {
-    kardionInstance.hidden.style.height = `${kardionInstance.content.clientHeight}px`;
-    kardionInstance.kardion.classList.add(this.settings.activeClass);
+  showKordion(kordionInstance) {
+    kordionInstance.hidden.style.height = `${kordionInstance.content.clientHeight}px`;
+    kordionInstance.kordion.classList.add(this.settings.activeClass);
 
     // Scroll to accordion
     if (this.settings.scrollTo) {
-      kardionInstance.content.scrollIntoView({
+      kordionInstance.content.scrollIntoView({
         behavior: "smooth",
         block: "start",
         inline: "nearest"
@@ -128,34 +128,34 @@ class Kardion {
 
     // Replacing the icon
     setTimeout(() => {
-      this.replaceIcon(kardionInstance, false);
+      this.replaceIcon(kordionInstance, false);
     }, this.settings.speed / 2);
   }
 
   // Hide accordion
-  hideKardion(kardionInstance) {
-    kardionInstance.hidden.style.removeProperty("height");
-    kardionInstance.kardion.classList.remove(this.settings.activeClass);
+  hideKordion(kordionInstance) {
+    kordionInstance.hidden.style.removeProperty("height");
+    kordionInstance.kordion.classList.remove(this.settings.activeClass);
 
     setTimeout(() => {
-      this.replaceIcon(kardionInstance, true);
+      this.replaceIcon(kordionInstance, true);
     }, this.settings.speed / 2);
   }
 
   // Toggle accordion
-  toggleKardion(kardionInstance) {
+  toggleKordion(kordionInstance) {
     // Scroll to accordion
-    if (!kardionInstance.kardion.classList.contains(this.settings.activeClass) && this.settings.scrollTo) {
-      kardionInstance.content.scrollIntoView({
+    if (!kordionInstance.kordion.classList.contains(this.settings.activeClass) && this.settings.scrollTo) {
+      kordionInstance.content.scrollIntoView({
         behavior: "smooth",
         block: "start",
         inline: "nearest"
       });
     }
 
-    kardionInstance.kardion.classList.contains(this.settings.activeClass)
-      ? this.hideKardion(kardionInstance)
-      : this.showKardion(kardionInstance);
+    kordionInstance.kordion.classList.contains(this.settings.activeClass)
+      ? this.hideKordion(kordionInstance)
+      : this.showKordion(kordionInstance);
 
     // ScrollTrigger Update by GSAP
     if (ScrollTrigger) {
@@ -166,33 +166,33 @@ class Kardion {
   }
 
   // Replacing the accordion icon
-  replaceIcon(kardionInstance, hidden = true) {
-    if (!kardionInstance.kardionIcon) return;
-    const useTag = kardionInstance.kardionIcon.querySelector("use");
+  replaceIcon(kordionInstance, hidden = true) {
+    if (!kordionInstance.kordionIcon) return;
+    const useTag = kordionInstance.kordionIcon.querySelector("use");
     if (!useTag) {
-      console.debug("No use tag found in the kardion icon");
+      console.debug("No use tag found in the kordion icon");
       return;
     }
 
-    const icon = hidden ? kardionInstance.iconHidden : kardionInstance.iconShow;
+    const icon = hidden ? kordionInstance.iconHidden : kordionInstance.iconShow;
     useTag.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", this.settings.iconPath + icon);
   }
 
   // Hide all accordions in container
-  hideAllKardions(closestObject) {
-    closestObject.querySelectorAll(`${this.kardion}.${this.settings.activeClass}`).forEach((activeKardion) => {
-      if (activeKardion !== event.target.closest(this.kardion)) {
-        const kardionInstance = this.createKardionInstance(activeKardion);
-        this.hideKardion(kardionInstance);
+  hideAllKordions(closestObject) {
+    closestObject.querySelectorAll(`${this.kordion}.${this.settings.activeClass}`).forEach((activeKordion) => {
+      if (activeKordion !== event.target.closest(this.kordion)) {
+        const kordionInstance = this.createKordionInstance(activeKordion);
+        this.hideKordion(kordionInstance);
       }
     });
   }
 
   // Hide nested accordions
-  hideNestedKardions(container) {
-    container.querySelectorAll(this.kardion).forEach((element) => {
-      const nestedKardion = this.createKardionInstance(element);
-      this.hideKardion(nestedKardion);
+  hideNestedKordions(container) {
+    container.querySelectorAll(this.kordion).forEach((element) => {
+      const nestedKordion = this.createKordionInstance(element);
+      this.hideKordion(nestedKordion);
     });
   }
 }

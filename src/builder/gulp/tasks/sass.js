@@ -25,7 +25,7 @@ export default function (gulp, config, paths, banner) {
       .pipe(sourcemaps.init())
       .pipe(postcss(postcssPlugins))
       .on("error", notify.onError({ title: "Style" }))
-      .pipe(rename({ basename: "kardion", extname: ".css" }))
+      .pipe(rename({ basename: "kordion", extname: ".css" }))
       .pipe(sourcemaps.write())
       .pipe(header(banner))
       .pipe(gulp.dest(`${config.root}/export/`));
@@ -37,7 +37,7 @@ export default function (gulp, config, paths, banner) {
       .pipe(postcss(postcssPlugins))
       .on("error", notify.onError({ title: "Style" }))
       .pipe(cleanCSS({ compatibility: "ie8" }))
-      .pipe(rename({ basename: "kardion", extname: ".min.css" }))
+      .pipe(rename({ basename: "kordion", extname: ".min.css" }))
       .pipe(sourcemaps.write())
       .pipe(header(banner))
       .pipe(gulp.dest(`${config.root}/export/`));
