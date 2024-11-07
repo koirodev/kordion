@@ -1,0 +1,6 @@
+:root {
+  --kardion-speed: 0.35s;
+  --kardion-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --kardion-animation: var(--kardion-speed) var(--kardion-ease);
+  --kardion-icon-color-hover: #2bfa92;
+}
