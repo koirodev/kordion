@@ -1,6 +1,6 @@
 
 /*
- * Kordion 2.0.0
+ * Kordion 2.0.1
  * https://github.com/koirodev/kordion
  *
  * Copyright 2024 Vitaly Koiro

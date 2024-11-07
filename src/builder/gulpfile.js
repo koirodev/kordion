@@ -4,7 +4,7 @@ import config from "./gulp/config.js";
 import appPath from "./gulp/paths/app.js";
 import tasksPath from "./gulp/paths/tasks.js";
 
-const version = "2.0.0";
+const version = "2.0.1";
 const date = "November 08, 2024";
 const header = `
 /*
