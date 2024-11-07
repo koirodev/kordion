@@ -1,3 +1,9 @@
+## 2.0.2 - Released on November 8th, 2024
+
+### Features
+- Renamed from "kardion" to "kordion"
+
+
 ## 2.0.1 - Released on November 8th, 2024
 
 ### Features

@@ -3,6 +3,11 @@
   "eslint.enable": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "cSpell.words": [
-    "kordion"
+    "GSAP",
+    "Koiro",
+    "kordion",
+    "kordions",
+    "Vitaly",
+    "xlink"
   ]
 }

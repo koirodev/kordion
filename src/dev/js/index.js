@@ -34,7 +34,7 @@ class Kordion {
     kordions.forEach((element) => {
       const kordionInstance = this.createKordionInstance(element);
 
-      if (speed != 350) {
+      if (this.settings.speed != 350) {
         element.style.setProperty("--kordion-speed", `${this.settings.speed / 1000}s`);
       }
 
