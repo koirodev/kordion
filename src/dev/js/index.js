@@ -16,7 +16,7 @@ class Kordion {
       activeClass: "js-kordion-active",
       iconClass: ".icon",
       speed: 350,
-      iconPath: "/assets/templates/img/sprite.svg#",
+      iconPath: "/sprite.svg#",
       scrollTo: false,
     };
 
