@@ -4,18 +4,16 @@ import config from "./gulp/config.js";
 import appPath from "./gulp/paths/app.js";
 import tasksPath from "./gulp/paths/tasks.js";
 
-const version = "2.0.2";
-const date = "November 08, 2024";
 const header = `
 /*
- * Kordion ${version}
+ * Kordion ${config.version}
  * https://github.com/koirodev/kordion
  *
  * Copyright 2024 Vitaly Koiro
  *
  * Released under the MIT License
  *
- * Released on: ${date}
+ * Released on: ${config.date}
 */
 `;
 
