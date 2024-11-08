@@ -1,5 +1,5 @@
 const config = {
-  version: "2.0.3",
+  version: "2.0.3-beta.1",
   date: getDate(),
   root: "./../",
   autoprefixerConfig: ["last 10 version", "> 90%"]

@@ -7,6 +7,7 @@ import tasksPath from "./gulp/paths/tasks.js";
 const header = `
 /*
  * Kordion ${config.version}
+ * Contemporary style and functionality - an accordion that does more.
  * https://github.com/koirodev/kordion
  *
  * Copyright 2024 Vitaly Koiro
