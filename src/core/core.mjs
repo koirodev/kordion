@@ -158,7 +158,7 @@ class Kordion {
       : this.showKordion(kordionInstance);
 
     // ScrollTrigger Update by GSAP
-    if (ScrollTrigger) {
+    if (typeof ScrollTrigger !== 'undefined') {
       setTimeout(() => {
         ScrollTrigger.refresh();
       }, this.settings.speed);
@@ -196,3 +196,5 @@ class Kordion {
     });
   }
 }
+
+export default Kordion;

@@ -21,18 +21,18 @@ export default function (gulp, config, paths, banner) {
   ]
 
   gulp.task("sass", function () {
-    return gulp.src([`${config.root}/dev/scss/index.scss`])
+    return gulp.src([`${config.root}/src/kordion.scss`])
       .pipe(sourcemaps.init())
       .pipe(postcss(postcssPlugins))
       .on("error", notify.onError({ title: "Style" }))
       .pipe(rename({ basename: "kordion", extname: ".css" }))
       .pipe(sourcemaps.write())
       .pipe(header(banner))
-      .pipe(gulp.dest(`${config.root}/export/`));
+      .pipe(gulp.dest(`${config.root}/dist/`));
   });
 
   gulp.task("sass:minified", function () {
-    return gulp.src([`${config.root}/dev/scss/index.scss`])
+    return gulp.src([`${config.root}/src/kordion.scss`])
       .pipe(sourcemaps.init())
       .pipe(postcss(postcssPlugins))
       .on("error", notify.onError({ title: "Style" }))
@@ -40,6 +40,6 @@ export default function (gulp, config, paths, banner) {
       .pipe(rename({ basename: "kordion", extname: ".min.css" }))
       .pipe(sourcemaps.write())
       .pipe(header(banner))
-      .pipe(gulp.dest(`${config.root}/export/`));
+      .pipe(gulp.dest(`${config.root}/dist/`));
   });
 }
