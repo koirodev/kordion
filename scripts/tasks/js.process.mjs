@@ -4,7 +4,7 @@ import header from "gulp-header";
 import rename from "gulp-rename";
 import rollup from "gulp-rollup";
 
-export default function (gulp, config, paths, banner) {
+export default function (gulp, config, banner) {
 
   gulp.task("js:process", function () {
     return gulp.src("src/**/*.mjs")
@@ -19,7 +19,7 @@ export default function (gulp, config, paths, banner) {
       }))
       .pipe(rename({ extname: ".js" }))
       .pipe(header(banner))
-      .pipe(sourcemaps.write("./"))
+      .pipe(sourcemaps.write("."))
       .pipe(gulp.dest(`${config.root}/dist`))
   });
 
@@ -37,7 +37,7 @@ export default function (gulp, config, paths, banner) {
       .pipe(terser())
       .pipe(rename({ suffix: ".min", extname: ".js" }))
       .pipe(header(banner))
-      .pipe(sourcemaps.write("./"))
+      .pipe(sourcemaps.write("."))
       .pipe(gulp.dest(`${config.root}/dist`))
   });
 

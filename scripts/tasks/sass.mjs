@@ -1,3 +1,5 @@
+import fs from "fs";
+import path from 'path';
 import sourcemaps from "gulp-sourcemaps";
 import notify from "gulp-notify";
 import rename from "gulp-rename";
@@ -11,7 +13,7 @@ import postcssIsPseudoClass from "@csstools/postcss-is-pseudo-class";
 import sass from "@csstools/postcss-sass";
 import autoprefixer from "autoprefixer";
 
-export default function (gulp, config, paths, banner) {
+export default function (gulp, config, banner) {
   const postcssPlugins = [
     sass({ silenceDeprecations: ["legacy-js-api", "import"] }),
     postcssImport(),
@@ -26,9 +28,22 @@ export default function (gulp, config, paths, banner) {
       .pipe(postcss(postcssPlugins))
       .on("error", notify.onError({ title: "Style" }))
       .pipe(rename({ basename: "kordion", extname: ".css" }))
-      .pipe(sourcemaps.write())
+      .pipe(sourcemaps.write("."))
       .pipe(header(banner))
-      .pipe(gulp.dest(`${config.root}/dist/`));
+      .pipe(gulp.dest(`${config.root}/dist/`))
+      .on("end", function () {
+        const mjsDir = path.join(config.root, "dist", "css");
+        if (!fs.existsSync(mjsDir)) {
+          fs.mkdirSync(mjsDir, { recursive: true });
+        }
+        const cssContent = fs.readFileSync(`${config.root}/dist/kordion.css`, "utf8");
+        const mjsContent = `
+          const style = document.createElement("style");
+          style.innerHTML = \`${cssContent}\`;
+          document.head.appendChild(style);
+        `;
+        fs.writeFileSync(`${config.root}/dist/css/kordion.mjs`, mjsContent);
+      });
   });
 
   gulp.task("sass:minified", function () {
@@ -38,8 +53,21 @@ export default function (gulp, config, paths, banner) {
       .on("error", notify.onError({ title: "Style" }))
       .pipe(cleanCSS({ compatibility: "ie8" }))
       .pipe(rename({ basename: "kordion", extname: ".min.css" }))
-      .pipe(sourcemaps.write())
+      .pipe(sourcemaps.write("."))
       .pipe(header(banner))
-      .pipe(gulp.dest(`${config.root}/dist/`));
+      .pipe(gulp.dest(`${config.root}/dist/`))
+      .on("end", function () {
+        const mjsDir = path.join(config.root, "dist", "css");
+        if (!fs.existsSync(mjsDir)) {
+          fs.mkdirSync(mjsDir, { recursive: true });
+        }
+        const cssContent = fs.readFileSync(`${config.root}/dist/kordion.min.css`, "utf8");
+        const mjsContent = `
+          const style = document.createElement("style");
+          style.innerHTML = \`${cssContent}\`;
+          document.head.appendChild(style);
+        `;
+        fs.writeFileSync(`${config.root}/dist/css/kordion.min.mjs`, mjsContent);
+      });
   });
 }

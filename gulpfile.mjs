@@ -7,6 +7,7 @@ import tasksPath from "./scripts/paths/tasks.mjs";
 const header = `
 /*
  * Kordion ${config.version}
+ * Contemporary style and functionality - an accordion that does more.
  * https://github.com/koirodev/kordion
  *
  * Copyright 2024 Vitaly Koiro
@@ -24,7 +25,7 @@ const paths = {
 
 for (const taskPath of paths.tasks) {
   const task = await import(taskPath);
-  task.default(gulp, config, paths, header);
+  task.default(gulp, config, header);
 }
 
 const defaultTasks = [
