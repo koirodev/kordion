@@ -1,12 +1,13 @@
 import gulp from "gulp";
-import config from "./gulp/config.js";
+import config from "./scripts/config.mjs";
 
-import appPath from "./gulp/paths/app.js";
-import tasksPath from "./gulp/paths/tasks.js";
+import appPath from "./scripts/paths/app.mjs";
+import tasksPath from "./scripts/paths/tasks.mjs";
 
 const header = `
 /*
  * Kordion ${config.version}
+ * Contemporary style and functionality - an accordion that does more.
  * https://github.com/koirodev/kordion
  *
  * Copyright 2024 Vitaly Koiro
@@ -24,23 +25,19 @@ const paths = {
 
 for (const taskPath of paths.tasks) {
   const task = await import(taskPath);
-  task.default(gulp, config, paths, header);
+  task.default(gulp, config, header);
 }
 
 const defaultTasks = [
   "sass",
   "sass:minified",
   "js:process",
-  "js:process:minified",
+  "js:process:min",
+  "js:process:modules",
+  "js:process:modules:min",
 ];
 
 gulp.task("default", gulp.series(
-  "clean",
-  gulp.parallel(...defaultTasks),
-  "watch"
-));
-
-gulp.task("prod", gulp.series(
   "clean",
   gulp.parallel(...defaultTasks)
 ));

@@ -1,0 +1,71 @@
+[data-kordion-current] {
+  margin: 0;
+
+  padding: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  background-color: transparent;
+  border: none;
+
+  cursor: pointer;
+  user-select: none;
+}
+
+[data-kordion-icon] {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  margin-left: auto;
+
+  transition: transform var(--kordion-speed) var(--kordion-ease),
+  fill var(--kordion-speed) var(--kordion-ease);
+
+  pointer-events: all;
+
+  @include hover {
+    fill: var(--kordion-icon-color-hover);
+  }
+}
+
+[data-kordion-hidden] {
+  padding-top: 0;
+  width: 100%;
+  max-height: 0;
+  display: block;
+  box-sizing: content-box;
+
+  overflow: hidden;
+  will-change: max-height;
+
+  transition: max-height var(--kordion-speed) var(--kordion-ease);
+
+  &.js-kordion-opened {
+    max-height: unset;
+  }
+}
+
+[data-kordion-content] {
+  width: 100%;
+  height: fit-content;
+}
+
+.js-kordion-active {
+  & > [data-kordion-current] {
+    & > [data-kordion-icon] {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.js-kordion-disabled {
+  pointer-events: none;
+  user-select: none;
+
+  & .icon,
+  & [data-kordion-current] {
+    pointer-events: none;
+  }
+}
