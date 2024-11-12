@@ -1,3 +1,8 @@
+## 3.0.1 - Released on 2024-11-12
+
+### Bug Fixes
+- Removed the ability to call an accordion on a DOM element.
+
 ## 3.0.0 - Released on 2024-11-11
 
 ### Features

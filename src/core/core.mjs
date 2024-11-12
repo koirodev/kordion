@@ -10,8 +10,8 @@ class Kordion {
 
     if (typeof this.selector === "string") {
       this.$kordions = document.querySelectorAll(this.selector);
-    } else if (this.selectorType === "object") {
-      this.$kordions = this.$kordions;
+    } else {
+      console.error("Kordion can only be a string.");
     }
 
     // Стандартные настройки аккордеона | Default accordion settings
@@ -146,7 +146,7 @@ class Kordion {
   clickHandling(instance, element) {
     // Автоматическое закрытие соседних вложенных аккордеонов | Automatically closing adjacent nested accordions
     if (this.settings.autoCloseNested) {
-      const containerElement = instance.current.closest(`${this.selector}.${this.settings.activeClass}`);
+      const containerElement = instance.current.closest(`.${this.settings.activeClass}`);
       if (containerElement) {
         this.hideAll(containerElement);
       }
@@ -288,7 +288,7 @@ class Kordion {
       container = document.querySelector(container);
     }
 
-    container.querySelectorAll(`${this.selector}.${this.settings.activeClass}`).forEach((activeKordion) => {
+    container.querySelectorAll(`.${this.settings.activeClass}`).forEach((activeKordion) => {
       if (activeKordion !== event.target.closest(this.selector)) {
         this.hide(this.createInstance(activeKordion));
       }
