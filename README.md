@@ -30,7 +30,7 @@ $ npm install kordion
 // Import Kordion JS
 import Kordion from "kordion";
 // Import Kordion styles
-import "kordion/css"; // or import "kordion/dist/css/kordion.mjs";
+import "kordion/css";
 
 const kordion = new Kordion(...);
 ```
