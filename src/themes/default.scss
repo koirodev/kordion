@@ -69,6 +69,22 @@
     }
   }
 
+  & a[href] {
+    color: var(--kordion-link-color-primary);
+    text-decoration-color: inherit;
+    text-decoration-line: var(--kordion-link-decoration);
+    text-decoration-style: var(--contacts-link-decoration);
+    text-decoration-skip-ink: none;
+    text-decoration-thickness: 1px;
+    text-underline-position: from-font;
+
+    transition: color var(--kordion-speed) var(--kordion-ease);
+
+    @include hover {
+      color: var(--kordion-link-color-hover);
+    }
+  }
+
   & .kordion {
     &__current {
       margin: 0;
@@ -82,22 +98,6 @@
       color: inherit;
       font: inherit;
       text-align: start;
-
-      & a[href] {
-        color: var(--kordion-link-color-primary);
-        text-decoration-color: inherit;
-        text-decoration-line: var(--kordion-link-decoration);
-        text-decoration-style: var(--contacts-link-decoration);
-        text-decoration-skip-ink: none;
-        text-decoration-thickness: 1px;
-        text-underline-position: from-font;
-
-        transition: color var(--kordion-speed) var(--kordion-ease);
-
-        @include hover {
-          color: var(--kordion-link-color-hover);
-        }
-      }
 
       &:disabled {
         opacity: 0.6;

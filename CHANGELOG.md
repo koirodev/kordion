@@ -1,3 +1,13 @@
+## 3.1.1 - Released on 2024-11-13
+
+### Features
+- Documentation has been improved
+- Examples have been implemented.
+
+### Bug Fixes
+- Fixed a bug with style paths in package.json
+
+
 ## 3.1.0 - Released on 2024-11-13
 
 ### Features
