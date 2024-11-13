@@ -32,8 +32,11 @@ $ npm install kordion
 ```JavaScript
 // Import Kordion JS
 import Kordion from "kordion";
+
 // Import Kordion styles
 import "kordion/css";
+// Import Kordion theme
+import "kordion/theme/default";
 
 const kordion = new Kordion(...);
 ```
@@ -43,7 +46,12 @@ const kordion = new Kordion(...);
 If you don't want to include Kordion files in your project, you may use it from CDN:
 
 ```HTML
+<!-- Default styles -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/kordion/dist/kordion.min.css">
+<!-- Theme -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/kordion/dist/theme/default.min.css">
+
+<!-- Script -->
 <script src="https://cdn.jsdelivr.net/npm/kordion/dist/kordion.min.js"></script>
 ```
 
@@ -138,8 +146,7 @@ These are not all the settings, below you can read about each of them in more de
         <td><code>theme</code></td>
         <td>String</td>
         <td><code>"clear"</code></td>
-        <td>Theme setup. Requires connection of styles of the selected theme.<br>
-        <b>By default, kordion does not use themes.<b></td>
+        <td>Theme setup. Requires connection of styles of the selected theme.<br><b>By default, kordion does not use themes.<b><br></td>
       </tr>
       <tr>
         <td><code>autoClose</code></td>
@@ -386,6 +393,17 @@ button.addEventListener("click", () => {
       </tr>
     </tbody>
   </table>
+
+## Themes
+
+### `clear`
+This is a standard theme, for which it is enough to connect only standard styles. It contains only the most necessary styles for the accordion to work.
+
+### `Default`
+Standard Kordion theme made with love for users.
+
+<img src="images/01-default.png" loading="lazy" style="width: 100%; height: auto; max-height: 500px; object-fit: contain;">
+
 
 ## Examples
 
