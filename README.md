@@ -14,6 +14,7 @@
 - [Parameters](#parameters)
 - [Events](#events)
 - [Methods](#methods)
+- [Themes](#themes)
 - [Examples](#examples)
 - [FAQ](#faq)
 
@@ -49,7 +50,7 @@ If you don't want to include Kordion files in your project, you may use it from 
 <!-- Default styles -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/kordion/dist/kordion.min.css">
 <!-- Theme -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/kordion/dist/theme/default.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/kordion/dist/themes/default.min.css">
 
 <!-- Script -->
 <script src="https://cdn.jsdelivr.net/npm/kordion/dist/kordion.min.js"></script>
@@ -399,15 +400,23 @@ button.addEventListener("click", () => {
 ### `clear`
 This is a standard theme, for which it is enough to connect only standard styles. It contains only the most necessary styles for the accordion to work.
 
+Подробно с темами вы можете ознакомиться <a href="//koirodev.github.io/kordion/demos/index.html" target="_blank">перейдя по ссылке</a>
+
 ### `Default`
 Standard Kordion theme made with love for users.
 
-<img src="images/01-default.png" loading="lazy" style="width: 100%; height: auto; max-height: 500px; object-fit: contain;">
+- <a href="https://codepen.io/koirodev/pen/BaXMXLZ" target="_blank">Codepen</a>
+- <a href="//koirodev.github.io/kordion/demos/01-default.html" target="_blank">Example page</a>
+
+<details>
+  <summary>View screenshot</summary>
+  <img src="images/01-default.png" loading="lazy" style="width: 100%; height: auto; max-height: 500px; object-fit: contain;">
+</details>
 
 
 ## Examples
 
-Sorry, usage examples are in development.
+You can see more detailed examples <a href="//koirodev.github.io/kordion/demos/index.html" target="_blank">by following the link</a>.
 
 ## FAQ
 
