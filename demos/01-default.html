@@ -3,12 +3,184 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="stylesheet" href="../dist/kordion.min.css">
+  <link rel="stylesheet" href="../dist/themes/default.min.css">
+
   <title>01-default</title>
 </head>
 
 <body>
-  <h1>01-default</h1>
-  <p>Sorry, usage examples are in development.</p>
+  <div class="container">
+    <h1>Kordion theme default</h1>
+
+    <div data-kordion-container>
+      <div data-kordion>
+        <button data-kordion-current>
+          <span>Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
+          <svg data-kordion-icon="[plus, minus]">
+            <use xlink:href="sprite.svg#plus"></use>
+          </svg>
+        </button>
+        <div data-kordion-hidden>
+          <div data-kordion-content>
+            <article class="article">
+              <h2>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</h2>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit dolorem optio quaerat assumenda
+                cupiditate quasi incidunt totam expedita voluptatem. Tenetur, dolorum quisquam alias sit asperiores
+                dolorem atque cupiditate numquam magnam?
+              </p>
+            </article>
+          </div>
+        </div>
+      </div>
+      <div data-kordion>
+        <button data-kordion-current>
+          <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Culpa et quas, <a href="/">uisquam vel ipsum
+              beatae in cupiditate voluptatem nostrum qui</a>q, labore magni odit, pariatur architecto sint sapiente
+            quia temporibus consequuntur.</span>
+          <svg data-kordion-icon="[plus, minus]">
+            <use xlink:href="sprite.svg#plus"></use>
+          </svg>
+        </button>
+        <div data-kordion-hidden>
+          <div data-kordion-content>
+            <article class="article">
+              <h2>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</h2>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit dolorem optio quaerat assumenda
+                cupiditate quasi incidunt totam expedita voluptatem. Tenetur, dolorum quisquam alias sit asperiores
+                dolorem atque cupiditate numquam magnam?
+              </p>
+            </article>
+            <div data-kordion>
+              <button data-kordion-current>
+                <span>Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
+                <svg data-kordion-icon="[plus, minus]">
+                  <use xlink:href="sprite.svg#plus"></use>
+                </svg>
+              </button>
+              <div data-kordion-hidden>
+                <div data-kordion-content>
+                  <article class="article">
+                    <h2>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</h2>
+                    <p>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit dolorem optio quaerat assumenda
+                      cupiditate quasi incidunt totam expedita voluptatem. Tenetur, dolorum quisquam alias sit
+                      asperiores
+                      dolorem atque cupiditate numquam magnam?
+                    </p>
+                  </article>
+
+                  <div data-kordion>
+                    <button data-kordion-current>
+                      <span>Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
+                      <svg data-kordion-icon="[plus, minus]">
+                        <use xlink:href="sprite.svg#plus"></use>
+                      </svg>
+                    </button>
+                    <div data-kordion-hidden>
+                      <div data-kordion-content>
+                        <article class="article">
+                          <h2>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</h2>
+                          <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit dolorem optio quaerat
+                            assumenda
+                            cupiditate quasi incidunt totam expedita voluptatem. Tenetur, dolorum quisquam alias sit
+                            asperiores
+                            dolorem atque cupiditate numquam magnam?
+                          </p>
+                        </article>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div data-kordion>
+              <button data-kordion-current>
+                <span>Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
+                <svg data-kordion-icon="[plus, minus]">
+                  <use xlink:href="sprite.svg#plus"></use>
+                </svg>
+              </button>
+              <div data-kordion-hidden>
+                <div data-kordion-content>
+                  <article class="article">
+                    <h2>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</h2>
+                    <p>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit dolorem optio quaerat assumenda
+                      cupiditate quasi incidunt totam expedita voluptatem. Tenetur, dolorum quisquam alias sit
+                      asperiores
+                      dolorem atque cupiditate numquam magnam?
+                    </p>
+                  </article>
+
+                  <div data-kordion>
+                    <button data-kordion-current>
+                      <span>Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
+                      <svg data-kordion-icon="[plus, minus]">
+                        <use xlink:href="sprite.svg#plus"></use>
+                      </svg>
+                    </button>
+                    <div data-kordion-hidden>
+                      <div data-kordion-content>
+                        <article class="article">
+                          <h2>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</h2>
+                          <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit dolorem optio quaerat
+                            assumenda
+                            cupiditate quasi incidunt totam expedita voluptatem. Tenetur, dolorum quisquam alias sit
+                            asperiores
+                            dolorem atque cupiditate numquam magnam?
+                          </p>
+                        </article>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    * {
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    article {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 10px;
+    }
+
+    .container {
+      padding: 20px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 20px;
+    }
+  </style>
+
+  <script type="module">
+    import Kordion from "../dist/kordion.min.mjs";
+
+    const kordion = new Kordion("[data-kordion]", {
+      theme: "default"
+    });
+  </script>
 </body>
 
 </html>

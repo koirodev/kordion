@@ -17,7 +17,7 @@ class Kordion {
     // Стандартные настройки аккордеона | Default accordion settings
     const defaultOptions = {
       speed: 350,
-      theme: "default",
+      theme: "clear",
       autoClose: false,
       autoCloseNested: false,
       scrollTo: false,
@@ -68,22 +68,25 @@ class Kordion {
     this.$kordions.forEach((element) => {
       const instance = this.createInstance(element);
 
-      // Установка скорости анимации аккордеона
+      // Установка скорости анимации аккордеона | Setting the accordion animation speed
       if (this.settings.speed != 350) {
         element.style.setProperty("--kordion-speed", `${this.settings.speed / 1000}s`);
       }
+
+      // Установка темы аккордеона | Setting the accordion theme
+      element.classList.add(`kordion_${this.settings.theme}`);
 
       // Обработка события клика на аккордеон
       instance.kordion.addEventListener("click", (event) => {
         this.settings.events.click(this, event);
       });
 
-      // Обработка события клика на заголовок аккордеона
+      // Обработка события клика на заголовок аккордеона | Handling a click event on the accordion header
       instance.current.addEventListener("click", () => {
         this.clickHandling(instance, element);
       });
 
-      // Показ аккордеона при инициализации
+      // Показ аккордеона при инициализации | Showing the accordion when initializing
       if (element.classList.contains(this.settings.activeClass)) {
         instance.show();
       }
@@ -140,7 +143,24 @@ class Kordion {
       instance.parent = instance.kordion.closest(this.settings.parent);
     }
 
+    // Обработка аккордеона с темой | Handling an accordion with a theme
+    if (!instance.kordion.classList.contains(`kordion_${this.settings.theme}`)) {
+      this.setKordionClasses(instance);
+    }
+
     return instance;
+  }
+
+  // Установка классов для ключевых объектов аккордеона | Setting classes for key accordion objects
+  setKordionClasses(instance) {
+    instance.kordion.classList.add("kordion");
+    instance.current.classList.add("kordion__current");
+    instance.hidden.classList.add("kordion__hidden");
+    instance.content.classList.add("kordion__content");
+
+    if (instance.icon) {
+      instance.icon.classList.add("kordion__icon");
+    }
   }
 
   // Обработка события клика на аккордеон

@@ -1,0 +1,126 @@
+@import "../core/scss/_mixins.scss", "default/vars";
+
+.kordion_default {
+  margin-top: var(--kordion-gap);
+
+  padding: var(--kordion-padding);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  color: var(--kordion-text-color-primary);
+  font: var(--kordion-font-primary);
+
+  background-color: var(--kordion-background-color-primary);
+  border: solid var(--kordion-border-width) var(--kordion-border-color-primary);
+  border-radius: var(--kordion-border-radius);
+
+  transition: background-color calc(var(--kordion-speed) * 2) var(--kordion-ease);
+
+  @media (any-hover: hover) {
+    &:has(> .kordion__current:hover:not(:disabled)) {
+      background-color: var(--kordion-background-color-hover);
+    }
+  }
+
+  &:first-of-type {
+    margin-top: 0;
+  }
+
+  &.js-kordion-active {
+    background-color: var(--kordion-background-color-active);
+
+    & .kordion__content {
+      &::before {
+        width: 100%;
+      }
+    }
+  }
+
+  & .kordion {
+    &__current {
+      margin: 0;
+
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: var(--kordion-current-gap);
+
+      color: inherit;
+      font: inherit;
+      text-align: start;
+
+      & a[href] {
+        color: var(--kordion-link-color-primary);
+        text-decoration-color: inherit;
+        text-decoration-line: var(--kordion-link-decoration);
+        text-decoration-style: var(--contacts-link-decoration);
+        text-decoration-skip-ink: none;
+        text-decoration-thickness: 1px;
+        text-underline-position: from-font;
+
+        transition: color var(--kordion-speed) var(--kordion-ease);
+
+        @include hover {
+          color: var(--kordion-link-color-hover);
+        }
+      }
+
+      &:disabled {
+        opacity: 0.6;
+
+        cursor: not-allowed;
+
+        & .kordion__icon {
+          fill: var(--kordion-icon-color-primary);
+        }
+      }
+    }
+
+    &__icon {
+      width: var(--kordion-icon-size);
+      height: var(--kordion-icon-size);
+      flex-shrink: 0;
+
+      fill: var(--kordion-icon-color-primary);
+
+      @include hover {
+        fill: var(--kordion-icon-color-hover);
+      }
+    }
+
+    &__content {
+      position: relative;
+
+      padding-top: var(--kordion-content-offset);
+
+      color: var(--kordion-text-color-secondary);
+      font: var(--kordion-font-secondary);
+
+      &::before {
+        content: "";
+
+        position: absolute;
+        top: calc(var(--kordion-content-offset, 20px) / 2);
+        right: 0;
+
+        width: 0;
+        height: var(--kordion-border-width);
+
+        background-color: var(--kordion-border-color-primary);
+
+        transition: width var(--kordion-speed) var(--kordion-ease);
+      }
+
+      & .kordion {
+        margin-top: var(--kordion-gap);
+
+        &:first-of-type {
+          margin-top: calc(var(--kordion-gap) * 2);
+        }
+      }
+    }
+  }
+}
