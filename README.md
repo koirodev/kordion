@@ -1,5 +1,5 @@
 # Kordion
-**Kordion** is a library for quickly creating flexible accordions on a page. It allows you to create accordions with various settings and styles, as well as control them using JavaScript. **Kordion uses vanilla JavaScript** and does not depend on third-party libraries, which makes it lightweight and fast.
+**Kordion** is a library for quickly creating flexible accordions on a page using JavaScript. It allows you to create accordions with various settings and styles, as well as control them using JavaScript. **Kordion uses vanilla JavaScript** and does not depend on third-party libraries, which makes it lightweight and fast.
 
 ## 📋 Table of Contents
 
