@@ -17,6 +17,7 @@ class Kordion {
     // Стандартные настройки аккордеона | Default accordion settings
     const defaultOptions = {
       speed: 350,
+      theme: "default",
       autoClose: false,
       autoCloseNested: false,
       scrollTo: false,
@@ -29,7 +30,7 @@ class Kordion {
       content: "[data-kordion-content]",
       activeClass: "js-kordion-active",
       openedClass: "js-kordion-opened",
-      disabledClass: "js-kordion-disabled",
+      disabledClass: "js-kordion-disabled"
 
       // События аккордеона | Accordion events
       events: {
