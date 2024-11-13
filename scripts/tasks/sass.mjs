@@ -23,51 +23,25 @@ export default function (gulp, config, banner) {
   ]
 
   gulp.task("sass", function () {
-    return gulp.src([`${config.root}/src/kordion.scss`])
+    return gulp.src([`${config.root}/src/**/*.scss`, `!${config.root}/src/**/_*.scss`])
       .pipe(sourcemaps.init())
       .pipe(postcss(postcssPlugins))
       .on("error", notify.onError({ title: "Style" }))
-      .pipe(rename({ basename: "kordion", extname: ".css" }))
+      .pipe(rename({ extname: ".css" }))
       .pipe(sourcemaps.write("."))
       .pipe(header(banner))
-      .pipe(gulp.dest(`${config.root}/dist/`))
-      .on("end", function () {
-        const mjsDir = path.join(config.root, "dist", "css");
-        if (!fs.existsSync(mjsDir)) {
-          fs.mkdirSync(mjsDir, { recursive: true });
-        }
-        const cssContent = fs.readFileSync(`${config.root}/dist/kordion.css`, "utf8");
-        const mjsContent = `
-          const style = document.createElement("style");
-          style.innerHTML = \`${cssContent}\`;
-          document.head.appendChild(style);
-        `;
-        fs.writeFileSync(`${config.root}/dist/css/kordion.mjs`, mjsContent);
-      });
+      .pipe(gulp.dest(`${config.root}/dist/`));
   });
 
   gulp.task("sass:minified", function () {
-    return gulp.src([`${config.root}/src/kordion.scss`])
+    return gulp.src([`${config.root}/src/**/*.scss`, `!${config.root}/src/**/_*.scss`])
       .pipe(sourcemaps.init())
       .pipe(postcss(postcssPlugins))
       .on("error", notify.onError({ title: "Style" }))
       .pipe(cleanCSS({ compatibility: "ie8" }))
-      .pipe(rename({ basename: "kordion", extname: ".min.css" }))
+      .pipe(rename({ extname: ".min.css" }))
       .pipe(sourcemaps.write("."))
       .pipe(header(banner))
-      .pipe(gulp.dest(`${config.root}/dist/`))
-      .on("end", function () {
-        const mjsDir = path.join(config.root, "dist", "css");
-        if (!fs.existsSync(mjsDir)) {
-          fs.mkdirSync(mjsDir, { recursive: true });
-        }
-        const cssContent = fs.readFileSync(`${config.root}/dist/kordion.min.css`, "utf8");
-        const mjsContent = `
-          const style = document.createElement("style");
-          style.innerHTML = \`${cssContent}\`;
-          document.head.appendChild(style);
-        `;
-        fs.writeFileSync(`${config.root}/dist/css/kordion.min.mjs`, mjsContent);
-      });
+      .pipe(gulp.dest(`${config.root}/dist/`));
   });
 }
