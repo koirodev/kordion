@@ -1,5 +1,6 @@
 # Kordion
-**Kordion** is a library for quickly creating flexible accordions on a page. It allows you to create accordions with various settings and styles, as well as control them using JavaScript. **Kordion uses vanilla JavaScript** and does not depend on third-party libraries, which makes it lightweight and fast.
+
+**Kordion** is a library for quickly creating flexible accordions on a page using JavaScript. It allows you to create accordions with various settings and styles, as well as control them using JavaScript. <strong>Kordion uses vanilla JavaScript</strong> and does not depend on third-party libraries, which makes it lightweight and fast.
 
 ## 📋 Table of Contents
 
@@ -19,9 +20,11 @@
 ## Getting started with Kordion
 
 ### Installation
+
 You have several possible options for installing the Kordion:
 
 ### Install from NPM
+
 ```bash
 $ npm install kordion
 ```
@@ -29,20 +32,31 @@ $ npm install kordion
 ```JavaScript
 // Import Kordion JS
 import Kordion from "kordion";
+
 // Import Kordion styles
-import "kordion/css"; // or import "kordion/dist/css/kordion.mjs";
+import "kordion/css";
+// Import Kordion theme
+import "kordion/theme/default";
 
 const kordion = new Kordion(...);
 ```
 
 ### Use Kordion from CDN
+
 If you don't want to include Kordion files in your project, you may use it from CDN:
+
 ```HTML
+<!-- Default styles -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/kordion/dist/kordion.min.css">
+<!-- Theme -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/kordion/dist/theme/default.min.css">
+
+<!-- Script -->
 <script src="https://cdn.jsdelivr.net/npm/kordion/dist/kordion.min.js"></script>
 ```
 
 If you use ES modules in your browser, there is a CDN version for that:
+
 ```HTML
 <script type="module">
   import Kordion from "https://cdn.jsdelivr.net/npm/kordion/dist/kordion.min.mjs"
@@ -52,10 +66,13 @@ If you use ES modules in your browser, there is a CDN version for that:
 ```
 
 ### Download
+
 If you want to use Kordion locally, you can directly download them from: [jsdelivr.com](https://www.jsdelivr.com/package/npm/kordion).
 
 ## Kordion HTML Layout
+
 Now, we need to add basic Kordion layout:
+
 ```HTML
 <!-- The accordion itself -->
 <div data-kordion>
@@ -84,11 +101,15 @@ Now, we need to add basic Kordion layout:
 ```
 
 ## Initialize Kordion
+
 Next we need to initialize Kordion in JavaScript:
+
 ```JavaScript
 const kordion = new Kordion("[data-kordion]");
 ```
+
 It's that easy to start working with the accordion. You can also customize its functionality more flexibly.
+
 ```JavaScript
 const kordion = new Kordion("[data-kordion]", {
   // Options
@@ -99,9 +120,11 @@ const kordion = new Kordion("[data-kordion]", {
   scrollTo: false,
 });
 ```
+
 These are not all the settings, below you can read about each of them in more detail or see examples of implementation.
 
 ### Parameters
+
 <table>
   <table>
     <thead>
@@ -118,6 +141,12 @@ These are not all the settings, below you can read about each of them in more de
         <td>Number</td>
         <td><code>350</code></td>
         <td>The speed of the animation when opening and closing the accordion.</td>
+      </tr>
+      <tr>
+        <td><code>theme</code></td>
+        <td>String</td>
+        <td><code>"clear"</code></td>
+        <td>Theme setup. Requires connection of styles of the selected theme.<br><b>By default, kordion does not use themes.<b><br></td>
       </tr>
       <tr>
         <td><code>autoClose</code></td>
@@ -200,9 +229,10 @@ These are not all the settings, below you can read about each of them in more de
     </tbody>
   </table>
 
-
 ### Events
+
 You can register event handlers for the basic accordion actions. Example:
+
 ```JavaScript
 const kordion = new Kordion("[data-kordion]", {
   on: {
@@ -217,6 +247,7 @@ const kordion = new Kordion("[data-kordion]", {
 ```
 
 The following events are available:
+
 <table>
   <table>
     <thead>
@@ -291,11 +322,12 @@ The following events are available:
     </tbody>
   </table>
 
-
 ### Methods
+
 After initializing Kordion, you have an initialized instance of it in a variable (like the kordion variable in the example above) with useful methods and properties.
 
 Example:
+
 ```JavaScript
 const kordion = new Kordion("[data-kordion]");
 
@@ -306,6 +338,7 @@ button.addEventListener("click", () => {
   kordion.showAll(".container");
 });
 ```
+
 <table>
   <table>
     <thead>
@@ -361,17 +394,30 @@ button.addEventListener("click", () => {
     </tbody>
   </table>
 
-## Examples
-Sorry, usage examples are in development.
+## Themes
 
+### `clear`
+This is a standard theme, for which it is enough to connect only standard styles. It contains only the most necessary styles for the accordion to work.
+
+### `Default`
+Standard Kordion theme made with love for users.
+
+<img src="images/01-default.png" loading="lazy" style="width: 100%; height: auto; max-height: 500px; object-fit: contain;">
+
+
+## Examples
+
+Sorry, usage examples are in development.
 
 ## FAQ
 
 ### How to build ready files?
 
 It's very simple. Make sure you are in the root of the repository and enter the commands in your terminal:
+
 ```bash
 $ npm install
 $ npm run build
 ```
+
 Done. The collected files are in the `./dist` directory.
