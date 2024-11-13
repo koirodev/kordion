@@ -316,7 +316,7 @@ class Kordion {
 
     // Выбор иконки для замены | Selecting an icon to replace
     const icon = hidden ? instance.iconHidden : instance.iconShow;
-    useTag.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", `${this.settings.spritePath}#${icon}}`);
+    useTag.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", `${this.settings.spritePath}#${icon}`);
   }
 }
 
