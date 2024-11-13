@@ -1,3 +1,14 @@
+## 3.1.2 - Released on 2024-11-13
+
+### Features
+- Implemented dark theme
+- Updated examples
+- Updated documentation
+
+### Bug Fixes
+- Fixed links to examples.
+
+
 ## 3.1.1 - Released on 2024-11-13
 
 ### Features

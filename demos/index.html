@@ -6,8 +6,8 @@
 
   <link rel="stylesheet" href="highlightjs/tokyo-night-dark.min.css">
 
-  <link rel="stylesheet" href="https://esm.sh/kordion@3.1.0/dist/kordion.min.css">
-  <link rel="stylesheet" href="https://esm.sh/kordion@3.1.0/dist/themes/default.min.css">
+  <link rel="stylesheet" href="https://esm.sh/kordion/dist/kordion.min.css">
+  <link rel="stylesheet" href="https://esm.sh/kordion/dist/themes/dark.min.css">
 
   <link rel="stylesheet" href="index.css">
 
@@ -29,14 +29,14 @@
         <div data-kordion-hidden>
           <div data-kordion-content>
             <article>
-                <h3>
-                  <a class="icon-link" href="./01-default.html" target="_blank">
-                    View in page
-                    <svg>
-                      <use xlink:href="sprite.svg#chevron_right"></use>
-                    </svg>
-                  </a>
-                </h3>
+              <h3>
+                <a class="icon-link" href="./01-default.html" target="_blank">
+                  View in page
+                  <svg>
+                    <use xlink:href="sprite.svg#chevron_right"></use>
+                  </svg>
+                </a>
+              </h3>
             </article>
             <div data-kordion>
               <button data-kordion-current>
@@ -47,10 +47,12 @@
               </button>
               <div data-kordion-hidden>
                 <div data-kordion-content>
-                  <p class="codepen" data-height="300" data-default-tab="html,result" data-slug-hash="BaXMXLZ" data-pen-title="01 default Kordion" data-user="koirodev" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+                  <p class="codepen" data-height="300" data-default-tab="html,result" data-slug-hash="BaXMXLZ"
+                    data-pen-title="01 default Kordion" data-user="koirodev"
+                    style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
                     <span>See the Pen <a href="//codepen.io/koirodev/pen/BaXMXLZ">
-                    01 default Kordion</a> by Vitaly Koiro (<a href="//codepen.io/koirodev">@koirodev</a>)
-                    on <a href="//codepen.io">CodePen</a>.</span>
+                        01 default Kordion</a> by Vitaly Koiro (<a href="//codepen.io/koirodev">@koirodev</a>)
+                      on <a href="//codepen.io">CodePen</a>.</span>
                   </p>
                 </div>
               </div>
@@ -64,7 +66,7 @@
               </button>
               <div data-kordion-hidden>
                 <div data-kordion-content>
-<pre><code>
+                  <pre><code>
 // Import Kordion JS
 import Kordion from "kordion";
 
@@ -83,6 +85,70 @@ const kordion = new Kordion("[data-kordion]", {
           </div>
         </div>
       </div>
+      <div data-kordion>
+        <button data-kordion-current>
+          <span>Default dark theme example</span>
+          <svg data-kordion-icon="[plus, minus]">
+            <use xlink:href="sprite.svg#plus"></use>
+          </svg>
+        </button>
+        <div data-kordion-hidden>
+          <div data-kordion-content>
+            <article>
+              <h3>
+                <a class="icon-link" href="./02-default-dark.html" target="_blank">
+                  View in page
+                  <svg>
+                    <use xlink:href="sprite.svg#chevron_right"></use>
+                  </svg>
+                </a>
+              </h3>
+            </article>
+            <div data-kordion>
+              <button data-kordion-current>
+                <span>Codepen</span>
+                <svg data-kordion-icon="[plus, minus]">
+                  <use xlink:href="sprite.svg#plus"></use>
+                </svg>
+              </button>
+              <div data-kordion-hidden>
+                <div data-kordion-content>
+                  <p class="codepen" data-height="300" data-default-tab="html,result" data-slug-hash="ExqMYVK" data-pen-title="Untitled" data-user="koirodev" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+                    <span>See the Pen <a href="https://codepen.io/koirodev/pen/ExqMYVK">
+                    Untitled</a> by Vitaly Koiro (<a href="https://codepen.io/koirodev">@koirodev</a>)
+                    on <a href="https://codepen.io">CodePen</a>.</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div data-kordion>
+              <button data-kordion-current>
+                <span>Code Example</span>
+                <svg data-kordion-icon="[plus, minus]">
+                  <use xlink:href="sprite.svg#plus"></use>
+                </svg>
+              </button>
+              <div data-kordion-hidden>
+                <div data-kordion-content>
+                  <pre><code>
+// Import Kordion JS
+import Kordion from "kordion";
+
+// Import Kordion styles
+import "kordion/css";
+// Import Kordion theme
+import "kordion/theme/default";
+
+const kordion = new Kordion("[data-kordion]", {
+  theme: "dark"
+});
+</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -90,7 +156,7 @@ const kordion = new Kordion("[data-kordion]", {
     import Kordion from "https://esm.sh/kordion";
 
     const kordion = new Kordion("[data-kordion]", {
-      theme: "default",
+      theme: "dark",
       autoClose: true
     });
   </script>

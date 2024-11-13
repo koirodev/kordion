@@ -413,6 +413,17 @@ Standard Kordion theme made with love for users.
   <img src="images/01-default.png" loading="lazy" style="width: 100%; height: auto; max-height: 500px; object-fit: contain;">
 </details>
 
+### `Dark`
+Dark theme for connoisseurs of greatness.
+
+- <a href="https://codepen.io/koirodev/pen/ExqMYVK" target="_blank">Codepen</a>
+- <a href="//koirodev.github.io/kordion/demos/02-default-dark.html" target="_blank">Example page</a>
+
+<details>
+  <summary>View screenshot</summary>
+  <img src="images/02-default-dark.png" loading="lazy" style="width: 100%; height: auto; max-height: 500px; object-fit: contain;">
+</details>
+
 
 ## Examples
 
