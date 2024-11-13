@@ -1,12 +1,12 @@
 @import "../core/scss/_mixins.scss";
 
-.kordion_default {
-  --kordion-background-color-active: #E6FDED4B;
-  --kordion-background-color-disabled: #F8F8F8;
-  --kordion-background-color-hover: #ECFFE7;
-  --kordion-background-color-primary: #FCFCFC;
+.kordion_dark {
+  --kordion-background-color-active: #50505023;
+  --kordion-background-color-disabled: #3A3A3A;
+  --kordion-background-color-hover: #0e0e0e;
+  --kordion-background-color-primary: #2b2b2b;
 
-  --kordion-border-color-primary: #D0D0D0;
+  --kordion-border-color-primary: #3a3a3a;
   --kordion-border-radius: 8px;
   --kordion-border-width: 1px;
 
@@ -19,18 +19,18 @@
 
   --kordion-gap: 10px;
 
-  --kordion-icon-color-hover: #4DF52B;
+  --kordion-icon-color-hover: #8de67b;
   --kordion-icon-color-primary: var(--kordion-text-color-primary);
   --kordion-icon-size: 24px;
 
   --kordion-link-color-hover: var(--kordion-icon-color-hover);
-  --kordion-link-color-primary: #00756F;
+  --kordion-link-color-primary: #56e6de;
   --kordion-link-decoration: underline;
 
   --kordion-padding: 8px;
   
-  --kordion-text-color-primary: #000;
-  --kordion-text-color-secondary: #333;
+  --kordion-text-color-primary: #dfdfdf;
+  --kordion-text-color-secondary: #b3b3b3;
   
   margin-top: var(--kordion-gap);
 

@@ -400,7 +400,7 @@ button.addEventListener("click", () => {
 ### `clear`
 This is a standard theme, for which it is enough to connect only standard styles. It contains only the most necessary styles for the accordion to work.
 
-Подробно с темами вы можете ознакомиться <a href="//koirodev.github.io/kordion/demos/index.html" target="_blank">перейдя по ссылке</a>
+Подробно с темами вы можете ознакомиться <a href="//koirodev.github.io/kordion/demos/" target="_blank">перейдя по ссылке</a>
 
 ### `Default`
 Standard Kordion theme made with love for users.
@@ -413,10 +413,21 @@ Standard Kordion theme made with love for users.
   <img src="images/01-default.png" loading="lazy" style="width: 100%; height: auto; max-height: 500px; object-fit: contain;">
 </details>
 
+### `Dark`
+Dark theme for connoisseurs of greatness.
+
+- <a href="https://codepen.io/koirodev/pen/ExqMYVK" target="_blank">Codepen</a>
+- <a href="//koirodev.github.io/kordion/demos/02-default-dark.html" target="_blank">Example page</a>
+
+<details>
+  <summary>View screenshot</summary>
+  <img src="images/02-default-dark.png" loading="lazy" style="width: 100%; height: auto; max-height: 500px; object-fit: contain;">
+</details>
+
 
 ## Examples
 
-You can see more detailed examples <a href="//koirodev.github.io/kordion/demos/index.html" target="_blank">by following the link</a>.
+You can see more detailed examples <a href="//koirodev.github.io/kordion/demos/" target="_blank">by following the link</a>.
 
 ## FAQ
 
