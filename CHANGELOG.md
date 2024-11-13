@@ -1,3 +1,19 @@
+## 3.1.0 - Released on 2024-11-13
+
+### Features
+- Added `dev` task to run the collector.
+- Supplemented documentation
+- Added the ability to change accordion themes.
+- Added a new theme `default`.
+
+### Bug Fixes
+- Fixed a bug with replacing the icon when opening and closing the accordion.
+- Fixed a bug with a comma in the core.
+
+### Changes
+- Changed the way `scss` is built
+
+
 ## 3.0.1 - Released on 2024-11-12
 
 ### Bug Fixes
