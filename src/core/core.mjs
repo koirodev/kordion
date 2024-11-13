@@ -30,7 +30,7 @@ class Kordion {
       content: "[data-kordion-content]",
       activeClass: "js-kordion-active",
       openedClass: "js-kordion-opened",
-      disabledClass: "js-kordion-disabled"
+      disabledClass: "js-kordion-disabled",
 
       // События аккордеона | Accordion events
       events: {
