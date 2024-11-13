@@ -41,3 +41,9 @@ gulp.task("default", gulp.series(
   "clean",
   gulp.parallel(...defaultTasks)
 ));
+
+gulp.task("dev", gulp.series(
+  "clean",
+  gulp.parallel(...defaultTasks),
+  "watch"
+));
