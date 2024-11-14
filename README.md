@@ -514,7 +514,7 @@ const kordion = new Kordion("[data-kordion]", {
     <tr>
       <td><code>x</code></td>
       <td>Number/String</td>
-      <td><code>20</code></td>
+      <td><code>0</code></td>
       <td>The offset along the X axis from which the animation will start.</td>
     </tr>
     <tr>
