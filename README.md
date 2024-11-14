@@ -400,8 +400,6 @@ button.addEventListener("click", () => {
 ### `clear`
 This is a standard theme, for which it is enough to connect only standard styles. It contains only the most necessary styles for the accordion to work.
 
-Подробно с темами вы можете ознакомиться <a href="//koirodev.github.io/kordion/demos/" target="_blank">перейдя по ссылке</a>
-
 ### `Default`
 Standard Kordion theme made with love for users.
 
