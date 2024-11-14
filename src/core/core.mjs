@@ -14,6 +14,17 @@ class Kordion {
       console.error("Kordion can only be a string.");
     }
 
+    const lineByLineOptions = {
+      speed: 350,
+      easing: "cubic-bezier(.25,.1,.25,1)",
+      delay: 30,
+      scale: 0.95,
+      y: 20,
+      x: 0,
+      opacity: 0.6,
+      clearProps: ["transform", "opacity", "transition"]
+    };
+
     // Стандартные настройки аккордеона | Default accordion settings
     const defaultOptions = {
       speed: 350,
@@ -31,16 +42,6 @@ class Kordion {
       activeClass: "js-kordion-active",
       openedClass: "js-kordion-opened",
       disabledClass: "js-kordion-disabled",
-
-      effect: "line-by-line",
-      lineByLine: {
-        speed: 350,
-        delay: 30,
-        scale: 0.95,
-        y: 20,
-        x: 0,
-        opacity: 0.6
-      },
 
       // События аккордеона | Accordion events
       events: {
@@ -64,6 +65,7 @@ class Kordion {
     };
 
     this.settings = { ...defaultOptions, ...options };
+    this.settings.effectLineByLine = { ...lineByLineOptions, ...this.settings.effectLineByLine };
 
     // Инициализация аккордеона | Initializing the accordion
     this.settings.events.before.init(this);
@@ -141,6 +143,11 @@ class Kordion {
       instance.icon.addEventListener("click", (event) => {
         event.preventDefault();
       });
+    }
+
+    // Проверка необходимости очищения пропсов | Checking the need to clear the props
+    if (this.settings.effect === "line-by-line" && this.settings.effectLineByLine.clearProps) {
+      instance.clearPropsTO = null;
     }
 
     // Проверка вложенности аккордеона | Checking the nesting of the accordion
@@ -369,8 +376,8 @@ class Kordion {
 
   // line-by-line эффект | line-by-line effect
   effectLineByLine(instance, road) {
-    if (typeof this.settings.lineByLine === "object") {
-      let { speed, delay, scale, y, x, opacity } = this.settings.lineByLine;
+    if (typeof this.settings.effectLineByLine === "object") {
+      let { speed, easing, delay, scale, y, x, opacity, clearProps } = this.settings.effectLineByLine;
 
       if (typeof y === "number") {
         y = `${y}px`;
@@ -392,6 +399,38 @@ class Kordion {
 
       const children = instance.content.children;
 
+      function resetProps() {
+        clearTimeout(instance.clearPropsTO);
+        if (typeof instance.clearPropsTO !== "undefined") {
+          if (typeof clearProps === "object") {
+            instance.clearPropsTO = setTimeout(() => {
+              for (let i = 0; i < children.length; i++) {
+                clearProps.forEach((prop) => {
+                  children[i].style.removeProperty(prop);
+                });
+              }
+            }, speed + delay * children.length);
+          } else if (typeof clearProps === "string") {
+            instance.clearPropsTO = setTimeout(() => {
+              for (let i = 0; i < children.length; i++) {
+                children[i].style.removeProperty(clearProps);
+              }
+            }, speed + delay * children.length);
+          } else if (typeof clearProps === "boolean") {
+            instance.clearPropsTO = setTimeout(() => {
+              for (let i = 0; i < children.length; i++) {
+                children[i].style.removeProperty("transform");
+                children[i].style.removeProperty("opacity");
+                children[i].style.removeProperty("transition");
+                children[i].style.removeProperty("transition-delay");
+              }
+            }, speed + delay * children.length);
+          } else {
+            console.error("Invalid line-by-line effect settings");
+          }
+        }
+      }
+
       if (road) {
         for (let i = 0; i < children.length; i++) {
           children[i].style.transform = `translate(${x}, ${y}) scale(${scale})`;
@@ -400,11 +439,15 @@ class Kordion {
 
         setTimeout(() => {
           for (let i = 0; i < children.length; i++) {
-            children[i].style.transition = `transform ${speed / 1000}s, opacity ${speed / 1000}s`;
+            children[i].style.transition =
+              `transform ${speed / 1000}s ${easing}, opacity ${speed / 1000}s ${easing}`;
             children[i].style.transitionDelay = `${delay * i}ms`;
             children[i].style.transform = `translate(0px, 0px) scale(1)`;
             children[i].style.opacity = 1;
           }
+
+          // Очистка пропсов | Clearing props
+          resetProps();
         }, 0);
       } else {
         for (let i = children.length - 1; i >= 0; i--) {
@@ -413,6 +456,9 @@ class Kordion {
           children[i].style.transform = `translate(${x}, ${y}) scale(${scale})`;
           children[i].style.opacity = opacity;
         }
+
+        // Очистка пропсов | Clearing props
+        resetProps();
       }
     } else {
       console.error("Invalid line-by-line effect settings");
