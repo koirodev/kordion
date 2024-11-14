@@ -1,6 +1,6 @@
 {
   "name": "kordion",
-  "version": "3.1.2",
+  "version": "3.1.3",
   "description": "Contemporary style and functionality - an accordion that does more.",
   "type": "module",
   "main": "./dist/kordion.mjs",
@@ -16,7 +16,9 @@
     "./min/css": "./dist/kordion.min.css",
     
     "./theme/default": "./dist/themes/default.css",
-    "./theme/min/default": "./dist/themes/default.min.css"
+    "./theme/min/default": "./dist/themes/default.min.css",
+    "./theme/dark": "./dist/themes/dark.css",
+    "./theme/min/dark": "./dist/themes/dark.min.css"
   },
   "files": [
     "CHANGELOG.md",

@@ -4,8 +4,11 @@
 <head>
   <meta charset="UTF-8">
 
-  <link rel="stylesheet" href="https://esm.sh/kordion/dist/kordion.min.css">
-  <link rel="stylesheet" href="https://esm.sh/kordion/dist/themes/dark.min.css">
+  <!-- <link rel="stylesheet" href="https://esm.sh/kordion/dist/kordion.min.css">
+  <link rel="stylesheet" href="https://esm.sh/kordion/dist/themes/dark.min.css"> -->
+
+  <link rel="stylesheet" href="../dist/kordion.min.css">
+  <link rel="stylesheet" href="../dist/themes/dark.min.css">
 
   <title>02-default-dark</title>
 </head>
@@ -946,7 +949,8 @@
   </style>
 
   <script type="module">
-    import Kordion from "https://esm.sh/kordion";
+    // import Kordion from "https://esm.sh/kordion";
+    import Kordion from "../dist/kordion.min.mjs";
 
     const kordion = new Kordion("[data-kordion]", {
       theme: "dark"

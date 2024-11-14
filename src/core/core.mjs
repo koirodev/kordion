@@ -32,6 +32,16 @@ class Kordion {
       openedClass: "js-kordion-opened",
       disabledClass: "js-kordion-disabled",
 
+      effect: "line-by-line",
+      lineByLine: {
+        speed: 350,
+        delay: 30,
+        scale: 0.95,
+        y: 20,
+        x: 0,
+        opacity: 0.6
+      },
+
       // События аккордеона | Accordion events
       events: {
         before: {
@@ -226,6 +236,9 @@ class Kordion {
       });
     }
 
+    // Запуск эффектов | Starting effects
+    this.effects(instance, true);
+
     // Замена иконки аккордеона | Replacing the accordion icon
     clearTimeout(instance.replaceIconTO);
     instance.replaceIconTO = setTimeout(() => {
@@ -269,6 +282,9 @@ class Kordion {
     instance.hidden.style.maxHeight = `${instance.content.clientHeight}px`;
     instance.hidden.classList.remove(this.settings.openedClass);
     instance.content.classList.add(this.settings.disabledClass);
+
+    // Запуск эффектов | Starting effects
+    this.effects(instance, false);
 
     // Основная работа с закрытие аккордеона | Main work with closing the accordion
     setTimeout(() => {
@@ -337,6 +353,70 @@ class Kordion {
     // Выбор иконки для замены | Selecting an icon to replace
     const icon = hidden ? instance.iconHidden : instance.iconShow;
     useTag.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", `${this.settings.spritePath}#${icon}`);
+  }
+
+  // Инициализация эффектов | Initializing effects
+  effects(instance, road) {
+    // road - true - открытие аккордеона | opening the accordion
+    // road - false - закрытие аккордеона | closing the accordion
+
+    if (this.settings.effect) {
+      if (this.settings.effect === "line-by-line") {
+        this.effectLineByLine(instance, road);
+      }
+    }
+  }
+
+  // line-by-line эффект | line-by-line effect
+  effectLineByLine(instance, road) {
+    if (typeof this.settings.lineByLine === "object") {
+      let { speed, delay, scale, y, x, opacity } = this.settings.lineByLine;
+
+      if (typeof y === "number") {
+        y = `${y}px`;
+      } else if (typeof y === "string") {
+        y = `${y}`;
+      } else {
+        console.error("Invalid line-by-line effect settings");
+        y = "20px";
+      }
+
+      if (typeof x === "number") {
+        x = `${x}px`;
+      } else if (typeof x === "string") {
+        x = `${x}`;
+      } else {
+        console.error("Invalid line-by-line effect settings");
+        x = "0px";
+      }
+
+      const children = instance.content.children;
+
+      if (road) {
+        for (let i = 0; i < children.length; i++) {
+          children[i].style.transform = `translate(${x}, ${y}) scale(${scale})`;
+          children[i].style.opacity = opacity;
+        }
+
+        setTimeout(() => {
+          for (let i = 0; i < children.length; i++) {
+            children[i].style.transition = `transform ${speed / 1000}s, opacity ${speed / 1000}s`;
+            children[i].style.transitionDelay = `${delay * i}ms`;
+            children[i].style.transform = `translate(0px, 0px) scale(1)`;
+            children[i].style.opacity = 1;
+          }
+        }, 0);
+      } else {
+        for (let i = children.length - 1; i >= 0; i--) {
+          children[i].style.transition = `transform ${speed / 1000}s, opacity ${speed / 1000}s`;
+          children[i].style.transitionDelay = `0ms`;
+          children[i].style.transform = `translate(${x}, ${y}) scale(${scale})`;
+          children[i].style.opacity = opacity;
+        }
+      }
+    } else {
+      console.error("Invalid line-by-line effect settings");
+    }
   }
 }
 
