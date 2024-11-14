@@ -488,7 +488,7 @@ const kordion = new Kordion("[data-kordion]", {
       <td>Animation speed</td>
     </tr>
     <tr>
-      <td><code>speed</code></td>
+      <td><code>easing</code></td>
       <td>String</td>
       <td><code>"cubic-bezier(.25,.1,.25,1)"</code></td>
       <td>Animation timing function</td>
@@ -500,7 +500,7 @@ const kordion = new Kordion("[data-kordion]", {
       <td>Delay from previous to next element.</td>
     </tr>
     <tr>
-      <td><code>delay</code></td>
+      <td><code>scale</code></td>
       <td>Number</td>
       <td><code>0.95</code></td>
       <td>The scale value from which the animation will start.</td>

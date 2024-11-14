@@ -1,3 +1,9 @@
+## 3.1.4 - Released on 2024-11-14
+
+### Bug Fixes
+- Documentation errors have been corrected.
+
+
 ## 3.1.3 - Released on 2024-11-14
 
 ### Features
