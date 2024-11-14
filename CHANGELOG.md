@@ -1,3 +1,10 @@
+## 3.1.3 - Released on 2024-11-14
+
+### Features
+- Implemented `line-by-line` animation.
+- Documentation updated.
+
+
 ## 3.1.2 - Released on 2024-11-13
 
 ### Features
