@@ -127,16 +127,15 @@ class Kordion {
     // Установка иконки аккордеона | Setting the accordion icon
     if (instance.current.querySelector(this.settings.icon)) {
       instance.icon = instance.current.querySelector(this.settings.icon);
-      let iconList = instance.icon.getAttribute(this.settings.icon.match(/\[([^\]]+)\]/)[1]);
-      iconList = iconList.substring(1, iconList.length - 1);
+      let iconList = instance.icon.getAttribute(this.settings.icon.replace(/^\[|\]$/g, ''));
+      iconList = iconList.replace(/^\[|\]$/g, '');
 
       // Разделение иконок на скрытую и показываемую | Separating icons into hidden and shown
       const iconArray = iconList.split(",");
+      
       if (iconArray.length === 2) {
         instance.iconHidden = iconArray[0].trim();
         instance.iconShow = iconArray[1].trim();
-      } else {
-        console.error("Invalid data-kordion-icon attribute");
       }
 
       // Отмена действия по умолчанию при нажатии на иконку | Canceling the default action when clicking on the icon
@@ -347,9 +346,9 @@ class Kordion {
   }
 
   // Замена иконки аккордеона | Replacing the accordion icon
-  replaceIcon(instance, hidden = true) {
-    if (!instance.icon) return;
-
+  replaceIcon(instance, hidden = true) {    
+    if (!instance.icon || !instance.iconShow || !instance.iconHidden) return;
+    
     const useTag = instance.icon.querySelector("use");
 
     if (!useTag) {
