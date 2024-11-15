@@ -1,3 +1,9 @@
+## 3.1.6 - Released on 2024-11-15
+
+### Bug Fixes
+- Fixed issue with accordions not being open initially.
+
+
 ## 3.1.5 - Released on 2024-11-15
 
 ### Features
