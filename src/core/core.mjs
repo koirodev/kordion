@@ -100,7 +100,7 @@ class Kordion {
 
       // Показ аккордеона при инициализации | Showing the accordion when initializing
       if (element.classList.contains(this.settings.activeClass)) {
-        instance.show();
+        this.show(instance);
       }
     });
 
