@@ -1,3 +1,12 @@
+## 3.1.5 - Released on 2024-11-15
+
+### Features
+- Standard styles have been updated.
+
+### Bug Fixes
+- The problem with icons has been solved.
+
+
 ## 3.1.4 - Released on 2024-11-14
 
 ### Bug Fixes

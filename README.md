@@ -193,7 +193,7 @@ These are not all the settings, below you can read about each of them in more de
       <td><code>icon</code></td>
       <td>String</td>
       <td><code>"[data-kordion-icon]"</code></td>
-      <td>Button icon selector. <br><b>Only data attribute is allowed.</b> <br>Accepts two icon names via <code>,</code>. <br>Example: <code>data-kordion-icon="[plus, minus]"</code>. <br>Works only with sprites.</td>
+      <td>Button icon selector. <br><b>Only data attribute is allowed.</b> <br>Accepts two icon names via <code>,</code>. <br>Example: <code>data-kordion-icon="[plus, minus]"</code> or <code>data-kordion-icon="plus, minus"</code>. <br>Works only with sprites.</td>
     </tr>
     <tr>
       <td><code>hidden</code></td>
@@ -514,7 +514,7 @@ const kordion = new Kordion("[data-kordion]", {
     <tr>
       <td><code>x</code></td>
       <td>Number/String</td>
-      <td><code>20</code></td>
+      <td><code>0</code></td>
       <td>The offset along the X axis from which the animation will start.</td>
     </tr>
     <tr>
