@@ -2,6 +2,9 @@
 
 **Kordion** is a library for quickly creating flexible accordions on a page using JavaScript. It allows you to create accordions with various settings and styles, as well as control them using JavaScript. <strong>Kordion uses vanilla JavaScript</strong> and does not depend on third-party libraries, which makes it lightweight and fast.
 
+[![npm downloads](https://img.shields.io/npm/dt/kordion?style=flat-square&color=red)](https://www.npmjs.com/package/kordion)
+[![npm downloads](https://img.shields.io/npm/dw/kordion?style=flat-square&color=blue)](https://www.npmjs.com/package/kordion)
+
 ## 📋 Table of Contents
 
 - [Getting Started with Kordion](#getting-started-with-kordion)
