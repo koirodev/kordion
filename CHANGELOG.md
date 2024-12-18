@@ -1,3 +1,9 @@
+## 3.2.0 - Released on 2024-12-18
+
+### Features
+- Added the ability to refer to the height of the accordion itself when opening, rather than the content inside it.
+
+
 ## 3.1.6 - Released on 2024-11-15
 
 ### Bug Fixes

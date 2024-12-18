@@ -172,6 +172,12 @@ These are not all the settings, below you can read about each of them in more de
       <td>Path to sprite with icons, for automatic icon replacement when opening and closing accordion.</td>
     </tr>
     <tr>
+      <td><code>getKordionHeight</code></td>
+      <td>Boolean</td>
+      <td><code>false</code></td>
+      <td>When set to true, it will use the height of the accordion, not the content inside.</td>
+    </tr>
+    <tr>
       <td><code>container</code></td>
       <td>Object</td>
       <td><code>["[data-kordion-container]", ".section"]</code></td>

@@ -33,6 +33,7 @@ class Kordion {
       autoCloseNested: false,
       scrollTo: false,
       spritePath: "sprite.svg",
+      getKordionHeight: false,
       container: ["[data-kordion-container]", ".section"],
       parent: "[kordion-parent]",
       current: "[data-kordion-current]",
@@ -114,6 +115,7 @@ class Kordion {
       hidden: element.querySelector(this.settings.hidden),
       content: element.querySelector(this.settings.content),
       current: element.querySelector(this.settings.current),
+      binding: null,
       icon: null,
       iconHidden: null,
       iconShow: null,
@@ -123,6 +125,12 @@ class Kordion {
       replaceIconTO: null,
       afterToggleTO: null
     };
+
+    if (this.settings.getKordionHeight) {
+      instance.binding = instance.kordion;
+    } else {
+      instance.binding = instance.content;
+    }
 
     // Установка иконки аккордеона | Setting the accordion icon
     if (instance.current.querySelector(this.settings.icon)) {
@@ -229,7 +237,7 @@ class Kordion {
 
   // Показ аккордеона | Showing the accordion
   show(instance) {
-    instance.hidden.style.maxHeight = `${instance.content.clientHeight}px`;
+    instance.hidden.style.maxHeight = `${instance.binding.clientHeight}px`;
     instance.kordion.classList.add(this.settings.activeClass);
     instance.content.classList.add(this.settings.disabledClass);
 
@@ -285,7 +293,7 @@ class Kordion {
   // Скрытие аккордеона | Hiding the accordion
   hide(instance) {
     // Фикс бага с высотой контента | Fixing the content height bug
-    instance.hidden.style.maxHeight = `${instance.content.clientHeight}px`;
+    instance.hidden.style.maxHeight = `${instance.binding.clientHeight}px`;
     instance.hidden.classList.remove(this.settings.openedClass);
     instance.content.classList.add(this.settings.disabledClass);
 
