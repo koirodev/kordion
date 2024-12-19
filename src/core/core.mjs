@@ -42,36 +42,22 @@ class Kordion {
       content: "[data-kordion-content]",
       activeClass: "js-kordion-active",
       openedClass: "js-kordion-opened",
-      disabledClass: "js-kordion-disabled",
-
-      // События аккордеона | Accordion events
-      events: {
-        before: {
-          "init": (kordion) => { },
-          "show": (kordion, instance) => { },
-          "hide": (kordion, instance) => { }
-        },
-        on: {
-          "init": (kordion) => { },
-          "show": (kordion, instance) => { },
-          "hide": (kordion, instance) => { }
-        },
-        after: {
-          "init": (kordion) => { },
-          "show": (kordion, instance) => { },
-          "hide": (kordion, instance) => { }
-        },
-        click: (kordion, event) => { } // любое событие клика на аккордеон | any click event on the accordion
-      }
+      disabledClass: "js-kordion-disabled"
     };
 
     this.settings = { ...defaultOptions, ...options };
     this.settings.effectLineByLine = { ...lineByLineOptions, ...this.settings.effectLineByLine };
 
     // Инициализация аккордеона | Initializing the accordion
-    this.settings.events.before.init(this);
+    if (this.settings.events.before.init) {
+      this.settings.events.before.init(this);
+    }
+
     this.init();
-    this.settings.events.after.init(this);
+
+    if (this.settings.events.after.init) {
+      this.settings.events.after.init(this);
+    }
   }
 
   // Инициализация аккордеона | Initializing the accordion
@@ -90,9 +76,11 @@ class Kordion {
       element.classList.add(`kordion_${this.settings.theme}`);
 
       // Обработка события клика на аккордеон
-      instance.kordion.addEventListener("click", (event) => {
-        this.settings.events.click(this, event);
-      });
+      if (this.settings.events.click) {
+        instance.kordion.addEventListener("click", (event) => {
+          this.settings.events.click(this, event);
+        });
+      }
 
       // Обработка события клика на заголовок аккордеона | Handling a click event on the accordion header
       instance.current.addEventListener("click", () => {
@@ -105,7 +93,9 @@ class Kordion {
       }
     });
 
-    this.settings.events.on.init(this);
+    if (this.settings.events.on.init) {
+      this.settings.events.on.init(this);
+    }
   }
 
   // Создание экземпляра аккордеона | Creating an instance of the accordion
@@ -140,7 +130,7 @@ class Kordion {
 
       // Разделение иконок на скрытую и показываемую | Separating icons into hidden and shown
       const iconArray = iconList.split(",");
-      
+
       if (iconArray.length === 2) {
         instance.iconHidden = iconArray[0].trim();
         instance.iconShow = iconArray[1].trim();
@@ -220,10 +210,16 @@ class Kordion {
   // Переключение аккордеона | Toggling the accordion
   toggle(instance) {
     if (instance.kordion.classList.contains(this.settings.activeClass)) {
-      this.settings.events.before.hide(this, instance);
+      if (this.settings.events.before.hide) {
+        this.settings.events.before.hide(this, instance);
+      }
+
       this.hide(instance)
     } else {
-      this.settings.events.before.show(this, instance);
+      if (this.settings.events.before.show) {
+        this.settings.events.before.show(this, instance);
+      }
+
       this.show(instance);
     }
 
@@ -256,14 +252,20 @@ class Kordion {
     // Замена иконки аккордеона | Replacing the accordion icon
     clearTimeout(instance.replaceIconTO);
     instance.replaceIconTO = setTimeout(() => {
-      this.settings.events.on.show(this, instance);
+      if (this.settings.events.on.show) {
+        this.settings.events.on.show(this, instance);
+      }
+
       this.replaceIcon(instance, false);
     }, this.settings.speed / 2);
 
     // Конец анимации аккордеона | End of accordion animation
     clearTimeout(instance.afterToggleTO);
     instance.afterToggleTO = setTimeout(() => {
-      this.settings.events.after.show(this, instance);
+      if (this.settings.events.after.show) {
+        this.settings.events.after.show(this, instance);
+      }
+      
       instance.content.classList.remove(this.settings.disabledClass);
 
       // Фикс бага с высотой контента | Fixing the content height bug
@@ -309,13 +311,19 @@ class Kordion {
       clearTimeout(instance.replaceIconTO);
       instance.replaceIconTO = setTimeout(() => {
         this.replaceIcon(instance, true);
-        this.settings.events.on.hide(this, instance);
+
+        if (this.settings.events.on.hide) {
+          this.settings.events.on.hide(this, instance);
+        }
       }, this.settings.speed / 2);
 
       // Окончание закрытия аккордеона | End of closing the accordion
       clearTimeout(instance.afterToggleTO);
       instance.afterToggleTO = setTimeout(() => {
-        this.settings.events.after.hide(this, instance);
+        if (this.settings.events.after.hide) {
+          this.settings.events.after.hide(this, instance);
+        }
+
         instance.content.classList.remove(this.settings.disabledClass);
       }, this.settings.speed);
 
@@ -354,9 +362,9 @@ class Kordion {
   }
 
   // Замена иконки аккордеона | Replacing the accordion icon
-  replaceIcon(instance, hidden = true) {    
+  replaceIcon(instance, hidden = true) {
     if (!instance.icon || !instance.iconShow || !instance.iconHidden) return;
-    
+
     const useTag = instance.icon.querySelector("use");
 
     if (!useTag) {
