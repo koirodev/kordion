@@ -1,6 +1,6 @@
 // Функция глубокого слияния объектов | Deep object merge function
 function deepMerge(target, source) {
-  if (!source || typeof source !== 'object') return target;
+  if (!source || typeof source !== "object") return target;
   
   Object.keys(source).forEach(key => {
     if (source[key] instanceof Object && !Array.isArray(source[key])) {
@@ -81,20 +81,20 @@ class Kordion {
 
   // Валидация настроек | Settings validation
   validateSettings() {
-    if (typeof this.settings.speed !== 'number' || this.settings.speed < 0) {
+    if (typeof this.settings.speed !== "number" || this.settings.speed < 0) {
       throw new Error("Speed must be a positive number");
     }
     
-    if (!this.settings.theme || typeof this.settings.theme !== 'string') {
+    if (!this.settings.theme || typeof this.settings.theme !== "string") {
       throw new Error("Theme must be a non-empty string");
     }
 
-    if (typeof this.settings.autoClose !== 'boolean') {
+    if (typeof this.settings.autoClose !== "boolean") {
       throw new Error("autoClose must be a boolean");
     }
     
     // Проверка существования необходимых селекторов | Checking the existence of required selectors
-    const requiredSelectors = ['container', 'parent', 'current', 'hidden', 'content'];
+    const requiredSelectors = ["container", "parent", "current", "hidden", "content"];
     requiredSelectors.forEach(selector => {
       if (!this.settings[selector]) {
         throw new Error(`Missing required selector: ${selector}`);
@@ -166,8 +166,8 @@ class Kordion {
     // Установка иконки аккордеона | Setting the accordion icon
     if (instance.current.querySelector(this.settings.icon)) {
       instance.icon = instance.current.querySelector(this.settings.icon);
-      let iconList = instance.icon.getAttribute(this.settings.icon.replace(/^\[|\]$/g, ''));
-      iconList = iconList.replace(/^\[|\]$/g, '');
+      let iconList = instance.icon.getAttribute(this.settings.icon.replace(/^\[|\]$/g, ""));
+      iconList = iconList.replace(/^\[|\]$/g, "");
 
       // Разделение иконок на скрытую и показываемую | Separating icons into hidden and shown
       const iconArray = iconList.split(",");
