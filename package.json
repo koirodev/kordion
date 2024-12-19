@@ -1,6 +1,6 @@
 {
   "name": "kordion",
-  "version": "3.2.3",
+  "version": "3.3.0",
   "description": "Contemporary style and functionality - an accordion that does more.",
   "type": "module",
   "main": "./dist/kordion.mjs",
@@ -14,11 +14,12 @@
     },
     "./css": "./dist/kordion.css",
     "./min/css": "./dist/kordion.min.css",
-    
     "./theme/default": "./dist/themes/default.css",
     "./theme/min/default": "./dist/themes/default.min.css",
     "./theme/dark": "./dist/themes/dark.css",
-    "./theme/min/dark": "./dist/themes/dark.min.css"
+    "./theme/min/dark": "./dist/themes/dark.min.css",
+
+    "./vue": "./dist/vue/index.mjs"
   },
   "files": [
     "CHANGELOG.md",
@@ -51,7 +52,8 @@
     "toggle",
     "functionality",
     "smooth",
-    "transition"
+    "transition",
+    "vue"
   ],
   "author": "Vitaly Koiro",
   "license": "MIT",

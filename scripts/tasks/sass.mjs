@@ -1,5 +1,3 @@
-import fs from "fs";
-import path from 'path';
 import sourcemaps from "gulp-sourcemaps";
 import notify from "gulp-notify";
 import rename from "gulp-rename";
@@ -28,8 +26,8 @@ export default function (gulp, config, banner) {
       .pipe(postcss(postcssPlugins))
       .on("error", notify.onError({ title: "Style" }))
       .pipe(rename({ extname: ".css" }))
-      .pipe(sourcemaps.write("."))
       .pipe(header(banner))
+      .pipe(sourcemaps.write("."))
       .pipe(gulp.dest(`${config.root}/dist/`));
   });
 
@@ -40,8 +38,8 @@ export default function (gulp, config, banner) {
       .on("error", notify.onError({ title: "Style" }))
       .pipe(cleanCSS({ compatibility: "ie8" }))
       .pipe(rename({ extname: ".min.css" }))
-      .pipe(sourcemaps.write("."))
       .pipe(header(banner))
+      .pipe(sourcemaps.write("."))
       .pipe(gulp.dest(`${config.root}/dist/`));
   });
 }

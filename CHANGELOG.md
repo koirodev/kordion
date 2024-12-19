@@ -1,3 +1,33 @@
+## 3.3.0 - Released on 2024-12-20
+
+### Features
+- Updated events.
+- The click event has been deleted.
+- Added the ability to call methods via `on'.
+- Added the ability to clear methods via `off` or `offAny'.
+- Added support `Vue.js `.
+
+### Docs
+- Updated documentation.
+- Added examples for `Vue.js `.
+
+
+## 3.2.4 - Released on 2024-12-19
+
+### Features
+- Added the deepMerge function for deep merging of settings.
+- Added validation of settings via the `validate Settings` method.
+- Improved error handling using `try-catch` blocks.
+- Added checks for the existence of selectors and the correctness of data types.
+- Improved the structure of the code with the allocation of logical blocks into separate methods.
+- Added more informative error messages.
+- Improved security when working with the `DOM'.
+- Added checks for the existence of `callback functions` before calling them.
+
+### Bug Fixes
+- Fixed a bug when quickly switching accordions with the automatic closing function enabled.
+
+
 ## 3.2.3 - Released on 2024-12-19
 
 ### Features

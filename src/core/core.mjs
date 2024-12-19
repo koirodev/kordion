@@ -1,60 +1,164 @@
 class Kordion {
   constructor(kordion, options = {}) {
-    if (!kordion) {
-      console.error("No kordion selector provided!");
-      return;
-    }
+    try {
+      // Инициализация хранилища обработчиков событий в самом начале
+      this._eventHandlers = {
+        show: [],
+        hide: [],
+        beforeShow: [],
+        beforeHide: [],
+        afterShow: [],
+        afterHide: []
+      };
 
-    this.selector = kordion;
-    this.$kordions = this.selector;
+      if (!kordion) {
+        throw new Error("No kordion selector provided!");
+      }
 
-    if (typeof this.selector === "string") {
+      this.selector = kordion;
+      this.$kordions = this.selector;
+
+      if (typeof this.selector !== "string") {
+        throw new Error("Kordion selector must be a string.");
+      }
+
       this.$kordions = document.querySelectorAll(this.selector);
-    } else {
-      console.error("Kordion can only be a string.");
+
+      if (!this.$kordions.length) {
+        console.warn("No elements found matching the selector");
+      }
+
+      const lineByLineOptions = {
+        speed: 350,
+        easing: "cubic-bezier(.25,.1,.25,1)",
+        delay: 30,
+        scale: 0.95,
+        y: 20,
+        x: 0,
+        opacity: 0.6,
+        clearProps: ["transform", "opacity", "transition"]
+      };
+
+      // Стандартные настройки аккордеона | Default accordion settings
+      const defaultOptions = {
+        speed: 350,
+        theme: "clear",
+        autoClose: false,
+        autoCloseNested: false,
+        scrollTo: false,
+        spritePath: "sprite.svg",
+        getKordionHeight: false,
+        container: ["[data-kordion-container]", ".section"],
+        parent: "[kordion-parent]",
+        current: "[data-kordion-current]",
+        icon: "[data-kordion-icon]",
+        hidden: "[data-kordion-hidden]",
+        content: "[data-kordion-content]",
+        activeClass: "js-kordion-active",
+        openedClass: "js-kordion-opened",
+        disabledClass: "js-kordion-disabled"
+      };
+
+      this.settings = { ...defaultOptions, ...options };
+      if (this.settings.effect === "line-by-line") {
+        this.settings.effectLineByLine = { ...lineByLineOptions, ...this.settings.effectLineByLine || {} };
+      }
+
+      this.validateSettings();
+      this.safeInit();
+
+    } catch (error) {
+      console.error("Kordion initialization error:", error);
+      throw error;
+    }
+  }
+
+  // Новые методы для работы с событиями | New methods for working with events
+  on(eventName, handler) {
+    if (!this._eventHandlers[eventName]) {
+      console.warn(`Event "${eventName}" is not supported`);
+      return this;
     }
 
-    const lineByLineOptions = {
-      speed: 350,
-      easing: "cubic-bezier(.25,.1,.25,1)",
-      delay: 30,
-      scale: 0.95,
-      y: 20,
-      x: 0,
-      opacity: 0.6,
-      clearProps: ["transform", "opacity", "transition"]
-    };
+    this._eventHandlers[eventName].push(handler);
+    return this;
+  }
 
-    // Стандартные настройки аккордеона | Default accordion settings
-    const defaultOptions = {
-      speed: 350,
-      theme: "clear",
-      autoClose: false,
-      autoCloseNested: false,
-      scrollTo: false,
-      spritePath: "sprite.svg",
-      getKordionHeight: false,
-      container: ["[data-kordion-container]", ".section"],
-      parent: "[kordion-parent]",
-      current: "[data-kordion-current]",
-      icon: "[data-kordion-icon]",
-      hidden: "[data-kordion-hidden]",
-      content: "[data-kordion-content]",
-      activeClass: "js-kordion-active",
-      openedClass: "js-kordion-opened",
-      disabledClass: "js-kordion-disabled"
-    };
-
-    this.settings = { ...defaultOptions, ...options };
-    this.settings.effectLineByLine = { ...lineByLineOptions, ...this.settings.effectLineByLine };
-
-    // Инициализация аккордеона | Initializing the accordion
-    if (this.settings.events && this.settings.events.before && this.settings.events.before.init) {
-      this.settings.events.before.init(this);
+  // Метод для отписки от событий | Method for unsubscribing from events
+  off(eventName, handler) {
+    if (!this._eventHandlers[eventName]) {
+      console.warn(`Event "${eventName}" is not supported`);
+      return this;
     }
-    this.init();
-    if (this.settings.events && this.settings.events.after && this.settings.events.after.init) {
-      this.settings.events.after.init(this);
+
+    const index = this._eventHandlers[eventName].indexOf(handler);
+    if (index !== -1) {
+      this._eventHandlers[eventName].splice(index, 1);
+    }
+
+    return this;
+  }
+
+  offAny(handler) {
+    for (let eventName in this._eventHandlers) {
+      if (this._eventHandlers[eventName].includes(handler)) {
+        this.off(eventName, handler);
+      }
+    }
+
+    return this;
+  }
+
+  _emit(eventName, ...args) {
+    if (this._eventHandlers && this._eventHandlers[eventName]) {
+      this._eventHandlers[eventName].forEach(handler => {
+        try {
+          handler.apply(this, args);
+        } catch (e) {
+          console.error(`Error in ${eventName} event handler:`, e);
+        }
+      });
+    }
+  }
+
+  // Валидация настроек | Settings validation
+  validateSettings() {
+    if (typeof this.settings.speed !== "number" || this.settings.speed < 0) {
+      throw new Error("Speed must be a positive number");
+    }
+
+    if (!this.settings.theme || typeof this.settings.theme !== "string") {
+      throw new Error("Theme must be a non-empty string");
+    }
+
+    if (typeof this.settings.autoClose !== "boolean") {
+      throw new Error("autoClose must be a boolean");
+    }
+
+    // Проверка существования необходимых селекторов | Checking the existence of required selectors
+    const requiredSelectors = ["container", "parent", "current", "hidden", "content"];
+    requiredSelectors.forEach(selector => {
+      if (!this.settings[selector]) {
+        throw new Error(`Missing required selector: ${selector}`);
+      }
+    });
+  }
+
+  // Безопасная инициализация с обработкой ошибок | Safe initialization with error handling
+  safeInit() {
+    try {
+      if (this.settings.events && this.settings.events.before && typeof this.settings.events.before.init === "function") {
+        this.settings.events.before.init(this);
+      }
+
+      this.init();
+
+      if (this.settings.events && this.settings.events.after && typeof this.settings.events.after.init === "function") {
+        this.settings.events.after.init(this);
+      }
+    } catch (error) {
+      console.error("Initialization error:", error);
+      throw error;
     }
   }
 
@@ -63,35 +167,15 @@ class Kordion {
     if (!this.$kordions.length) return;
 
     this.$kordions.forEach((element) => {
-      const instance = this.createInstance(element);
-
-      // Установка скорости анимации аккордеона | Setting the accordion animation speed
-      if (this.settings.speed != 350) {
-        element.style.setProperty("--kordion-speed", `${this.settings.speed / 1000}s`);
-      }
-
-      // Установка темы аккордеона | Setting the accordion theme
-      element.classList.add(`kordion_${this.settings.theme}`);
-
-      // Обработка события клика на аккордеон
-      if (this.settings.events && this.settings.events.click) {
-        instance.kordion.addEventListener("click", (event) => {
-          this.settings.events.click(this, event);
-        });
-      }
-
-      // Обработка события клика на заголовок аккордеона | Handling a click event on the accordion header
-      instance.current.addEventListener("click", () => {
-        this.clickHandling(instance, element);
-      });
-
-      // Показ аккордеона при инициализации | Showing the accordion when initializing
-      if (element.classList.contains(this.settings.activeClass)) {
-        this.show(instance);
+      try {
+        const instance = this.createInstance(element);
+        this.setupInstance(instance, element);
+      } catch (error) {
+        console.error(`Error initializing accordion element:`, error);
       }
     });
 
-    if (this.settings.events && this.settings.events.on && this.settings.events.on.init) {
+    if (this.settings.events && this.settings.events.on && typeof this.settings.events.on.init === "function") {
       this.settings.events.on.init(this);
     }
   }
@@ -124,8 +208,8 @@ class Kordion {
     // Установка иконки аккордеона | Setting the accordion icon
     if (instance.current.querySelector(this.settings.icon)) {
       instance.icon = instance.current.querySelector(this.settings.icon);
-      let iconList = instance.icon.getAttribute(this.settings.icon.replace(/^\[|\]$/g, ''));
-      iconList = iconList.replace(/^\[|\]$/g, '');
+      let iconList = instance.icon.getAttribute(this.settings.icon.replace(/^\[|\]$/g, ""));
+      iconList = iconList.replace(/^\[|\]$/g, "");
 
       // Разделение иконок на скрытую и показываемую | Separating icons into hidden and shown
       const iconArray = iconList.split(",");
@@ -176,7 +260,7 @@ class Kordion {
     }
   }
 
-  // Обработка события клика на аккордеон
+  // Обработка события клика на аккордеон | Handling a click event on the accordion
   clickHandling(instance, element) {
     // Автоматическое закрытие соседних вложенных аккордеонов | Automatically closing adjacent nested accordions
     if (this.settings.autoCloseNested) {
@@ -206,14 +290,8 @@ class Kordion {
   // Переключение аккордеона | Toggling the accordion
   toggle(instance) {
     if (instance.kordion.classList.contains(this.settings.activeClass)) {
-      if (this.settings.events && this.settings.events.before && this.settings.events.before.hide) {
-        this.settings.events.before.hide(this, instance);
-      }
       this.hide(instance);
     } else {
-      if (this.settings.events && this.settings.events.before && this.settings.events.before.show) {
-        this.settings.events.before.show(this, instance);
-      }
       this.show(instance);
     }
 
@@ -227,6 +305,11 @@ class Kordion {
 
   // Показ аккордеона | Showing the accordion
   show(instance) {
+    this._emit("beforeShow", this, instance);
+    if (this.settings.events && this.settings.events.before && typeof this.settings.events.before.show === "function") {
+      this.settings.events.before.show(this, instance);
+    }
+
     instance.hidden.style.maxHeight = `${instance.binding.clientHeight}px`;
     instance.kordion.classList.add(this.settings.activeClass);
     instance.content.classList.add(this.settings.disabledClass);
@@ -246,23 +329,28 @@ class Kordion {
     // Замена иконки аккордеона | Replacing the accordion icon
     clearTimeout(instance.replaceIconTO);
     instance.replaceIconTO = setTimeout(() => {
-      if (this.settings.events && this.settings.events.on && this.settings.events.on.show) {
+      this._emit("show", this, instance);
+      if (this.settings.events && this.settings.events.on && typeof this.settings.events.on.show === "function") {
         this.settings.events.on.show(this, instance);
       }
+
       this.replaceIcon(instance, false);
     }, this.settings.speed / 2);
 
     // Конец анимации аккордеона | End of accordion animation
     clearTimeout(instance.afterToggleTO);
     instance.afterToggleTO = setTimeout(() => {
+      instance.content.classList.remove(this.settings.disabledClass);
+      instance.hidden.style.removeProperty("max-height");
+
+      if (instance.kordion.classList.contains(this.settings.activeClass)) {
+        instance.hidden.classList.add(this.settings.openedClass);
+      }
+
+      this._emit("afterShow", this, instance);
       if (this.settings.events && this.settings.events.after && this.settings.events.after.show) {
         this.settings.events.after.show(this, instance);
       }
-      instance.content.classList.remove(this.settings.disabledClass);
-
-      // Фикс бага с высотой контента | Fixing the content height bug
-      instance.hidden.style.removeProperty("max-height");
-      instance.hidden.classList.add(this.settings.openedClass);
     }, this.settings.speed);
   }
 
@@ -286,7 +374,11 @@ class Kordion {
 
   // Скрытие аккордеона | Hiding the accordion
   hide(instance) {
-    // Фикс бага с высотой контента | Fixing the content height bug
+    this._emit("beforeHide", this, instance);
+    if (this.settings.events && this.settings.events.before && this.settings.events.before.hide) {
+      this.settings.events.before.hide(this, instance);
+    }
+
     instance.hidden.style.maxHeight = `${instance.binding.clientHeight}px`;
     instance.hidden.classList.remove(this.settings.openedClass);
     instance.content.classList.add(this.settings.disabledClass);
@@ -302,19 +394,25 @@ class Kordion {
       // Замена иконки аккордеона | Replacing the accordion icon
       clearTimeout(instance.replaceIconTO);
       instance.replaceIconTO = setTimeout(() => {
-        this.replaceIcon(instance, true);
+        this._emit("hide", this, instance);
         if (this.settings.events && this.settings.events.on && this.settings.events.on.hide) {
           this.settings.events.on.hide(this, instance);
         }
+
+        this.replaceIcon(instance, true);
       }, this.settings.speed / 2);
 
       // Окончание закрытия аккордеона | End of closing the accordion
       clearTimeout(instance.afterToggleTO);
       instance.afterToggleTO = setTimeout(() => {
+        if (!instance.kordion.classList.contains(this.settings.activeClass)) {
+          instance.content.classList.remove(this.settings.disabledClass);
+        }
+
+        this._emit("afterHide", this, instance);
         if (this.settings.events && this.settings.events.after && this.settings.events.after.hide) {
           this.settings.events.after.hide(this, instance);
         }
-        instance.content.classList.remove(this.settings.disabledClass);
       }, this.settings.speed);
 
       // Скрытие вложенных аккордеонов | Hiding nested accordions
@@ -369,13 +467,12 @@ class Kordion {
 
   // Инициализация эффектов | Initializing effects
   effects(instance, road) {
-    // road - true - открытие аккордеона | opening the accordion
-    // road - false - закрытие аккордеона | closing the accordion
-
-    if (this.settings.effect) {
+    try {
       if (this.settings.effect === "line-by-line") {
         this.effectLineByLine(instance, road);
       }
+    } catch (error) {
+      console.error("Effect application error:", error);
     }
   }
 
@@ -468,6 +565,32 @@ class Kordion {
     } else {
       console.error("Invalid line-by-line effect settings");
     }
+  }
+
+  // Выделенный метод настройки экземпляра | Dedicated instance setup method
+  setupInstance(instance, element) {
+    if (this.settings.speed !== 350) {
+      element.style.setProperty("--kordion-speed", `${this.settings.speed / 1000}s`);
+    }
+
+    element.classList.add(`kordion_${this.settings.theme}`);
+
+    this.bindEvents(instance, element);
+
+    if (element.classList.contains(this.settings.activeClass)) {
+      this.show(instance);
+    }
+  }
+
+  // Обработка событий | Event handling
+  bindEvents(instance, element) {
+    instance.current.addEventListener("click", (event) => {
+      try {
+        this.clickHandling(instance, element);
+      } catch (error) {
+        console.error("Click handling error:", error);
+      }
+    });
   }
 }
 

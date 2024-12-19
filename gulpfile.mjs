@@ -35,6 +35,7 @@ const defaultTasks = [
   "js:process:min",
   "js:process:modules",
   "js:process:modules:min",
+  "js:process:vue",
 ];
 
 gulp.task("default", gulp.series(
