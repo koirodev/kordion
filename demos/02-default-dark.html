@@ -945,12 +945,21 @@
     }
   </style>
 
+  <script src="../dist/kordion.min.js"></script>
   <script type="module">
-    import Kordion from "https://esm.sh/kordion";
+    // import Kordion from "https://esm.sh/kordion";
 
     const kordion = new Kordion("[data-kordion]", {
       theme: "dark"
     });
+
+    const beforeOpenHandler = (kordion, instance) => {
+      console.log("beforeOpen", kordion, instance);
+    }
+
+    kordion.on("beforeShow", beforeOpenHandler);
+
+    kordion.offAny(beforeOpenHandler);
   </script>
 </body>
 

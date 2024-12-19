@@ -1,3 +1,17 @@
+## 3.3.0 - Released on 2024-12-20
+
+### Features
+- Updated events.
+- The click event has been deleted.
+- Added the ability to call methods via `on'.
+- Added the ability to clear methods via `off` or `offAny'.
+- Added support `Vue.js `.
+
+### Docs
+- Updated documentation.
+- Added examples for `Vue.js `.
+
+
 ## 3.2.4 - Released on 2024-12-19
 
 ### Features

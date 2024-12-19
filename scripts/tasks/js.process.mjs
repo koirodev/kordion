@@ -43,6 +43,7 @@ export default function (gulp, config, banner) {
 
   gulp.task("js:process:modules", function () {
     return gulp.src("src/**/*.mjs")
+      .pipe(sourcemaps.init())
       .pipe(rollup({
         input: "./src/kordion.mjs",
         output: {
@@ -50,6 +51,7 @@ export default function (gulp, config, banner) {
         }
       }))
       .pipe(header(banner))
+      .pipe(sourcemaps.write("."))
       .pipe(gulp.dest(`${config.root}/dist`))
   });
 
@@ -65,5 +67,11 @@ export default function (gulp, config, banner) {
       .pipe(rename({ suffix: ".min" }))
       .pipe(header(banner))
       .pipe(gulp.dest(`${config.root}/dist`))
+  });
+
+  gulp.task("js:process:vue", function () {
+    return gulp.src("src/vue/**/*.mjs")
+      .pipe(header(banner))
+      .pipe(gulp.dest(`${config.root}/dist/vue`));
   });
 }

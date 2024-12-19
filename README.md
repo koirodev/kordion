@@ -23,6 +23,11 @@
   - [`dark`](#dark)
 - [Effects](#effects)
   - [`Line-By-Line`](#line-by-line)
+- [Plugin for `Vue.js`](#plugin-for-vuejs)
+  - [Kordion props](#kordion-props)
+  - [Kordion events](#kordion-events)
+  - [KordionCurrent props](#kordioncurrent-props)
+  - [KordionIcon props](#kordionicon-props)
 - [Examples](#examples)
 - [FAQ](#faq)
 
@@ -278,10 +283,23 @@ const kordion = new Kordion("[data-kordion]", {
         console.log("kordion initialized");
       },
     },
-    click: function (kordion, event) {
-      console.log("click event", kordion, event);
+    before: {
+      init: function (kordion) {
+        console.log("Accordion initialized");
+      },
+      hide: function (kordion, instance) {
+        console.log("The accordion is fully open");
+      },
     },
   }
+});
+
+kordion.on("show", (kordion, instance) => {
+  console.log("Accordion opening");
+});
+
+kordion.on("beforeShow", (kordion, instance) => {
+  console.log("Accordion opening");
 });
 ```
 
@@ -351,14 +369,9 @@ The following events are available:
       <td><code>(kordion, instance)</code></td>
       <td>Event after accordion closing</td>
     </tr>
-    <tr>
-      <td>Independent</td>
-      <td><code>click</code></td>
-      <td><code>(kordion, event)</code></td>
-      <td>Any click event on the accordion</td>
-    </tr>
   </tbody>
 </table>
+
 
 ### Methods
 
@@ -422,6 +435,18 @@ button.addEventListener("click", () => {
       <td>Method to close all accordions on a page.</td>
     </tr>
     <tr>
+      <td><code>kordion.off(eventName, handler)</code></td>
+      <td>Remove event handler</td>
+    </tr>
+    <tr>
+      <td><code>kordion.offAny(handler)</code></td>
+      <td>Remove event listener that will be fired on all events</td>
+    </tr>
+    <tr>
+      <td><code>kordion.on(eventName, handler)</code></td>
+      <td>Add event handler</td>
+    </tr>
+    <tr>
       <td><code>kordion.replaceIcon(instance, hidden = true)</code></td>
       <td>Method for replacing an icon. Accepts an accordion instance and a boolean icon value:<br>
       <code>true</code> = open accordion icon;
@@ -434,9 +459,11 @@ button.addEventListener("click", () => {
 ## Themes
 
 ### `clear`
+
 This is a standard theme, for which it is enough to connect only standard styles. It contains only the most necessary styles for the accordion to work.
 
 ### `Default`
+
 Standard Kordion theme made with love for users.
 
 - <a href="https://codepen.io/koirodev/pen/BaXMXLZ" target="_blank">Codepen</a>
@@ -448,6 +475,7 @@ Standard Kordion theme made with love for users.
 </details>
 
 ### `Dark`
+
 Dark theme for connoisseurs of greatness.
 
 - <a href="https://codepen.io/koirodev/pen/ExqMYVK" target="_blank">Codepen</a>
@@ -461,7 +489,9 @@ Dark theme for connoisseurs of greatness.
 ## Effects
 
 ### `Line-By-Line`
+
 Line-by-line appearance of accordion content.
+
 <details>
   <summary>Preview GIF</summary>
   <img src="images/line-by-line.gif" loading="lazy" style="width: 100%; height: auto; max-height: 500px; object-fit: contain;">
@@ -543,6 +573,146 @@ const kordion = new Kordion("[data-kordion]", {
   </tbody>
 </table>
 
+## Plugin for `Vue.js`
+
+Установка:
+
+```bash
+$ npm install kordion
+```
+
+Использование:
+
+```HTML
+<script setup>
+import { Kordion, KordionCurrent, KordionContent, KordionIcon } from 'kordion/vue'
+import 'kordion/css'
+import 'kordion/theme/dark'
+
+const kordionOptions = {
+  speed: 500,
+  theme: 'dark',
+}
+</script>
+
+<template>
+  <div data-kordion-container> <!-- Not obligatory. Required for automatic closing to work. -->
+    <Kordion 
+      :options="kordionOptions"
+      @show="console.log('show')"
+      @hide="console.log('hide')"
+      @before-show="console.log('before-show')"
+      @before-hide="console.log('before-hide')"
+      @after-show="console.log('after-show')"
+      @after-hide="console.log('after-hide')"
+    >
+      <KordionCurrent selector="button" :attributes="{ type: 'button', title: 'open' }">
+        <span>Open</span>
+        <KordionIcon value="sprite.svg#plus" icons="plus, minus" /> <!-- It is optional -->
+      </KordionCurrent>
+      <KordionContent>
+        <p>Content</p>
+        <p>Content</p>
+        <p>Content</p>
+        <p>Content</p>
+      </KordionContent>
+    </Kordion>
+  </div>
+</template>
+```
+
+### Kordion props
+
+<table>
+  <thead>
+    <tr>
+      <th>Prop</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Required</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>options</code></td>
+      <td>Object</td>
+      <td><code>{}</code></td>
+      <td><code>false</code></td>
+      <td>The same parameters are passed as in core. It is forbidden to transmit events.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+### Kordion events
+The Kordion component supports all Kordion events except initialization events. For example:
+
+```HTML
+<Kordion @before-show="..." @before-hide="..." @after-hide="...">
+```
+
+
+### KordionCurrent props
+
+<table>
+  <thead>
+    <tr>
+      <th>Prop</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Required</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>selector</code></td>
+      <td>String</td>
+      <td><code>"button"</code></td>
+      <td><code>false</code></td>
+      <td>HTML button selector. It is allowed to pass any existing HTML selector.</td>
+    </tr>
+    <tr>
+      <td><code>attributes</code></td>
+      <td>Object</td>
+      <td><code>{}</code></td>
+      <td><code>false</code></td>
+      <td>The attributes of the button. For example: <code>type: "button"</code>. It is allowed to transfer date attributes, etc.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+### KordionIcon props
+
+<table>
+  <thead>
+    <tr>
+      <th>Prop</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Required</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>value</code></td>
+      <td>String</td>
+      <td><code>"sprite.svg#icon"</code></td>
+      <td><code>false</code></td>
+      <td>The initial value of the icon</td>
+    </tr>
+    <tr>
+      <td><code>icons</code></td>
+      <td>String</td>
+      <td></td>
+      <td><code>true</code></td>
+      <td>Two icons separated by a comma. For example: <code>"plus, minus"</code></td>
+    </tr>
+  </tbody>
+</table>
 
 ## Examples
 

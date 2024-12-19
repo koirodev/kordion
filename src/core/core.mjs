@@ -1,22 +1,16 @@
-// Функция глубокого слияния объектов | Deep object merge function
-function deepMerge(target, source) {
-  if (!source || typeof source !== "object") return target;
-  
-  Object.keys(source).forEach(key => {
-    if (source[key] instanceof Object && !Array.isArray(source[key])) {
-      if (!target[key]) Object.assign(target, { [key]: {} });
-      deepMerge(target[key], source[key]);
-    } else {
-      Object.assign(target, { [key]: source[key] });
-    }
-  });
-  
-  return target;
-}
-
 class Kordion {
   constructor(kordion, options = {}) {
     try {
+      // Инициализация хранилища обработчиков событий в самом начале
+      this._eventHandlers = {
+        show: [],
+        hide: [],
+        beforeShow: [],
+        beforeHide: [],
+        afterShow: [],
+        afterHide: []
+      };
+
       if (!kordion) {
         throw new Error("No kordion selector provided!");
       }
@@ -29,7 +23,7 @@ class Kordion {
       }
 
       this.$kordions = document.querySelectorAll(this.selector);
-      
+
       if (!this.$kordions.length) {
         console.warn("No elements found matching the selector");
       }
@@ -65,17 +59,65 @@ class Kordion {
         disabledClass: "js-kordion-disabled"
       };
 
-      // Используем глубокое слияние для настроек | Using deep merge for settings
-      this.settings = deepMerge({...defaultOptions}, options);
-      this.settings.effectLineByLine = deepMerge({...lineByLineOptions}, this.settings.effectLineByLine || {});
+      this.settings = { ...defaultOptions, ...options };
+      if (this.settings.effect === "line-by-line") {
+        this.settings.effectLineByLine = { ...lineByLineOptions, ...this.settings.effectLineByLine || {} };
+      }
 
       this.validateSettings();
-      
-      // Безопасная инициализация с событиями | Safe initialization with events
       this.safeInit();
+
     } catch (error) {
       console.error("Kordion initialization error:", error);
       throw error;
+    }
+  }
+
+  // Новые методы для работы с событиями | New methods for working with events
+  on(eventName, handler) {
+    if (!this._eventHandlers[eventName]) {
+      console.warn(`Event "${eventName}" is not supported`);
+      return this;
+    }
+
+    this._eventHandlers[eventName].push(handler);
+    return this;
+  }
+
+  // Метод для отписки от событий | Method for unsubscribing from events
+  off(eventName, handler) {
+    if (!this._eventHandlers[eventName]) {
+      console.warn(`Event "${eventName}" is not supported`);
+      return this;
+    }
+
+    const index = this._eventHandlers[eventName].indexOf(handler);
+    if (index !== -1) {
+      this._eventHandlers[eventName].splice(index, 1);
+    }
+
+    return this;
+  }
+
+  offAny(handler) {
+    for (let eventName in this._eventHandlers) {
+      if (this._eventHandlers[eventName].includes(handler)) {
+        this.off(eventName, handler);
+      }
+    }
+
+    return this;
+  }
+
+  _emit(eventName, ...args) {
+    if (this._eventHandlers && this._eventHandlers[eventName]) {
+      this._eventHandlers[eventName].forEach(handler => {
+        try {
+          handler.apply(this, args);
+        } catch (e) {
+          console.error(`Error in ${eventName} event handler:`, e);
+        }
+      });
     }
   }
 
@@ -84,7 +126,7 @@ class Kordion {
     if (typeof this.settings.speed !== "number" || this.settings.speed < 0) {
       throw new Error("Speed must be a positive number");
     }
-    
+
     if (!this.settings.theme || typeof this.settings.theme !== "string") {
       throw new Error("Theme must be a non-empty string");
     }
@@ -92,7 +134,7 @@ class Kordion {
     if (typeof this.settings.autoClose !== "boolean") {
       throw new Error("autoClose must be a boolean");
     }
-    
+
     // Проверка существования необходимых селекторов | Checking the existence of required selectors
     const requiredSelectors = ["container", "parent", "current", "hidden", "content"];
     requiredSelectors.forEach(selector => {
@@ -105,13 +147,13 @@ class Kordion {
   // Безопасная инициализация с обработкой ошибок | Safe initialization with error handling
   safeInit() {
     try {
-      if (this.settings.events && this.settings.events.before && this.settings.events.before.init) {
+      if (this.settings.events && this.settings.events.before && typeof this.settings.events.before.init === "function") {
         this.settings.events.before.init(this);
       }
-      
+
       this.init();
-      
-      if (this.settings.events && this.settings.events.after && this.settings.events.after.init) {
+
+      if (this.settings.events && this.settings.events.after && typeof this.settings.events.after.init === "function") {
         this.settings.events.after.init(this);
       }
     } catch (error) {
@@ -133,7 +175,7 @@ class Kordion {
       }
     });
 
-    if (this.settings.events && this.settings.events.on && this.settings.events.on.init) {
+    if (this.settings.events && this.settings.events.on && typeof this.settings.events.on.init === "function") {
       this.settings.events.on.init(this);
     }
   }
@@ -218,7 +260,7 @@ class Kordion {
     }
   }
 
-  // Обработка события клика на аккордеон
+  // Обработка события клика на аккордеон | Handling a click event on the accordion
   clickHandling(instance, element) {
     // Автоматическое закрытие соседних вложенных аккордеонов | Automatically closing adjacent nested accordions
     if (this.settings.autoCloseNested) {
@@ -248,14 +290,8 @@ class Kordion {
   // Переключение аккордеона | Toggling the accordion
   toggle(instance) {
     if (instance.kordion.classList.contains(this.settings.activeClass)) {
-      if (this.settings.events && this.settings.events.before && this.settings.events.before.hide) {
-        this.settings.events.before.hide(this, instance);
-      }
       this.hide(instance);
     } else {
-      if (this.settings.events && this.settings.events.before && this.settings.events.before.show) {
-        this.settings.events.before.show(this, instance);
-      }
       this.show(instance);
     }
 
@@ -269,6 +305,11 @@ class Kordion {
 
   // Показ аккордеона | Showing the accordion
   show(instance) {
+    this._emit("beforeShow", this, instance);
+    if (this.settings.events && this.settings.events.before && typeof this.settings.events.before.show === "function") {
+      this.settings.events.before.show(this, instance);
+    }
+
     instance.hidden.style.maxHeight = `${instance.binding.clientHeight}px`;
     instance.kordion.classList.add(this.settings.activeClass);
     instance.content.classList.add(this.settings.disabledClass);
@@ -288,24 +329,27 @@ class Kordion {
     // Замена иконки аккордеона | Replacing the accordion icon
     clearTimeout(instance.replaceIconTO);
     instance.replaceIconTO = setTimeout(() => {
-      if (this.settings.events && this.settings.events.on && this.settings.events.on.show) {
+      this._emit("show", this, instance);
+      if (this.settings.events && this.settings.events.on && typeof this.settings.events.on.show === "function") {
         this.settings.events.on.show(this, instance);
       }
+
       this.replaceIcon(instance, false);
     }, this.settings.speed / 2);
 
     // Конец анимации аккордеона | End of accordion animation
     clearTimeout(instance.afterToggleTO);
     instance.afterToggleTO = setTimeout(() => {
-      if (this.settings.events && this.settings.events.after && this.settings.events.after.show) {
-        this.settings.events.after.show(this, instance);
-      }
-
       instance.content.classList.remove(this.settings.disabledClass);
       instance.hidden.style.removeProperty("max-height");
 
       if (instance.kordion.classList.contains(this.settings.activeClass)) {
         instance.hidden.classList.add(this.settings.openedClass);
+      }
+
+      this._emit("afterShow", this, instance);
+      if (this.settings.events && this.settings.events.after && this.settings.events.after.show) {
+        this.settings.events.after.show(this, instance);
       }
     }, this.settings.speed);
   }
@@ -330,6 +374,11 @@ class Kordion {
 
   // Скрытие аккордеона | Hiding the accordion
   hide(instance) {
+    this._emit("beforeHide", this, instance);
+    if (this.settings.events && this.settings.events.before && this.settings.events.before.hide) {
+      this.settings.events.before.hide(this, instance);
+    }
+
     instance.hidden.style.maxHeight = `${instance.binding.clientHeight}px`;
     instance.hidden.classList.remove(this.settings.openedClass);
     instance.content.classList.add(this.settings.disabledClass);
@@ -345,21 +394,24 @@ class Kordion {
       // Замена иконки аккордеона | Replacing the accordion icon
       clearTimeout(instance.replaceIconTO);
       instance.replaceIconTO = setTimeout(() => {
-        this.replaceIcon(instance, true);
+        this._emit("hide", this, instance);
         if (this.settings.events && this.settings.events.on && this.settings.events.on.hide) {
           this.settings.events.on.hide(this, instance);
         }
+
+        this.replaceIcon(instance, true);
       }, this.settings.speed / 2);
 
       // Окончание закрытия аккордеона | End of closing the accordion
       clearTimeout(instance.afterToggleTO);
       instance.afterToggleTO = setTimeout(() => {
-        if (this.settings.events && this.settings.events.after && this.settings.events.after.hide) {
-          this.settings.events.after.hide(this, instance);
-        }
-
         if (!instance.kordion.classList.contains(this.settings.activeClass)) {
           instance.content.classList.remove(this.settings.disabledClass);
+        }
+
+        this._emit("afterHide", this, instance);
+        if (this.settings.events && this.settings.events.after && this.settings.events.after.hide) {
+          this.settings.events.after.hide(this, instance);
         }
       }, this.settings.speed);
 
@@ -532,16 +584,6 @@ class Kordion {
 
   // Обработка событий | Event handling
   bindEvents(instance, element) {
-    if (this.settings.events && this.settings.events.click) {
-      instance.kordion.addEventListener("click", (event) => {
-        try {
-          this.settings.events.click(this, event);
-        } catch (error) {
-          console.error("Click event handler error:", error);
-        }
-      });
-    }
-
     instance.current.addEventListener("click", (event) => {
       try {
         this.clickHandling(instance, element);
