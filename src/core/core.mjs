@@ -103,6 +103,7 @@ class Kordion {
       hidden: element.querySelector(this.settings.hidden),
       content: element.querySelector(this.settings.content),
       current: element.querySelector(this.settings.current),
+      container: element.closest(this.settings.container.find((selector) => element.closest(selector))),
       binding: null,
       icon: null,
       iconHidden: null,
@@ -195,11 +196,8 @@ class Kordion {
     }
 
     // Если аккордеон находится в контейнере | If the accordion is in a container
-    if (this.settings.autoClose) {
-      const containerElement = this.settings.container.find((selector) => instance.current.closest(selector));
-      if (containerElement) {
-        this.hideAll(instance.current.closest(containerElement));
-      }
+    if (this.settings.autoClose && instance.container) {
+      this.hideAll(instance.container);
     }
 
     this.toggle(instance);
