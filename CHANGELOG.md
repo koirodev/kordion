@@ -1,3 +1,9 @@
+## 3.2.3 - Released on 2024-12-19
+
+### Features
+- Fixed event calls in the settings.
+
+
 ## 3.2.2 - Released on 2024-12-19
 
 ### Bug Fixes
