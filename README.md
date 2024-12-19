@@ -272,14 +272,16 @@ You can register event handlers for the basic accordion actions. Example:
 
 ```JavaScript
 const kordion = new Kordion("[data-kordion]", {
-  on: {
-    init: function (kordion) {
-      console.log("kordion initialized");
+  events: {
+    on: {
+      init: function (kordion) {
+        console.log("kordion initialized");
+      },
     },
-  },
-  click: (kordion, event) => {
-    console.log("click event", kordion, event);
-  },
+    click: function (kordion, event) {
+      console.log("click event", kordion, event);
+    },
+  }
 });
 ```
 
