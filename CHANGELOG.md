@@ -1,17 +1,17 @@
 ## 3.2.4 - Released on 2024-12-19
 
 ### Features
-- Добавлена функция deepMerge для глубокого слияния настроек.
-- Добавлена валидация настроек через метод `validateSettings`.
-- Улучшена обработка ошибок с помощью `try-catch` блоков.
-- Добавлены проверки существования селекторов и корректности типов данных.
-- Улучшена структура кода с выделением логических блоков в отдельные методы.
-- Добавлено больше информативных сообщений об ошибках.
-- Улучшена безопасность при работе с `DOM`.
-- Добавлены проверки существования `callback-функций` перед их вызовом.
+- Added the deepMerge function for deep merging of settings.
+- Added validation of settings via the `validate Settings` method.
+- Improved error handling using `try-catch` blocks.
+- Added checks for the existence of selectors and the correctness of data types.
+- Improved the structure of the code with the allocation of logical blocks into separate methods.
+- Added more informative error messages.
+- Improved security when working with the `DOM'.
+- Added checks for the existence of `callback functions` before calling them.
 
 ### Bug Fixes
-- Исправлен баг при быстром переключении аккордеонов с включенной функцией автоматического закрытия.
+- Fixed a bug when quickly switching accordions with the automatic closing function enabled.
 
 
 ## 3.2.3 - Released on 2024-12-19

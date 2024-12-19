@@ -1,6 +1,6 @@
 {
   "name": "kordion",
-  "version": "3.2.3",
+  "version": "3.2.4",
   "description": "Contemporary style and functionality - an accordion that does more.",
   "type": "module",
   "main": "./dist/kordion.mjs",
