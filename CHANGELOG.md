@@ -1,3 +1,15 @@
+## 3.3.2 - Released on 2024-12-20
+
+### Features
+- In the `hideEverything` method, a binding has been added to the accordion selector from which the method is called.
+
+### Changes
+- Removed the warning output to the console if there are no accordions on the page.
+
+### Docs
+- Updated documentation.
+
+
 ## 3.3.1 - Released on 2024-12-20
 
 ### Bug Fixes

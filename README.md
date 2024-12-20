@@ -431,8 +431,8 @@ button.addEventListener("click", () => {
       <td>Method for closing all accordions in the specified container. Accepts a selector or DOM element of the container in which to search.</td>
     </tr>
     <tr>
-      <td><code>kordion.hideEverything()</code></td>
-      <td>Method to close all accordions on a page.</td>
+      <td><code>kordion.hideEverything(thisSelector)</code></td>
+      <td>Method to close all accordions on a page. <code>thisSelector</code> takes a Boolean value, if <code>true</code>, it will be called only for the accordions from which the call occurs, if <code>false</code>, then for ALL accordions on the page, without reference to the accordion from which the call occurs. Default: <code>true</code></td>
     </tr>
     <tr>
       <td><code>kordion.off(eventName, handler)</code></td>

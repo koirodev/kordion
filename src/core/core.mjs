@@ -24,10 +24,6 @@ class Kordion {
 
       this.$kordions = document.querySelectorAll(this.selector);
 
-      if (!this.$kordions.length) {
-        console.warn("No elements found matching the selector");
-      }
-
       const lineByLineOptions = {
         speed: 350,
         easing: "cubic-bezier(.25,.1,.25,1)",
@@ -443,10 +439,11 @@ class Kordion {
   }
 
   // Скрытие всех аккордеонов на странице | Hiding all accordions
-  hideEverything() {
-    document.querySelectorAll(`.${this.settings.activeClass}`).forEach((element) => {
-      this.hide(this.createInstance(element));
-    });
+  hideEverything(thisSelector = true) {
+    document.querySelectorAll(`${thisSelector ? this.selector : ""}.${this.settings.activeClass}`)
+      .forEach((element) => {
+        this.hide(this.createInstance(element));
+      });
   }
 
   // Замена иконки аккордеона | Replacing the accordion icon
