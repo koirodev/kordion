@@ -1,3 +1,9 @@
+## 3.3.1 - Released on 2024-12-20
+
+### Bug Fixes
+- Fixed a method to close all accordions on the page.
+
+
 ## 3.3.0 - Released on 2024-12-20
 
 ### Features

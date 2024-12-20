@@ -444,7 +444,7 @@ class Kordion {
 
   // Скрытие всех аккордеонов на странице | Hiding all accordions
   hideEverything() {
-    document.querySelectorAll(this.selector).forEach((element) => {
+    document.querySelectorAll(`.${this.settings.activeClass}`).forEach((element) => {
       this.hide(this.createInstance(element));
     });
   }
