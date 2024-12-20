@@ -6,6 +6,9 @@
 ### Changes
 - Removed the warning output to the console if there are no accordions on the page.
 
+### Docs
+- Updated documentation.
+
 
 ## 3.3.1 - Released on 2024-12-20
 
