@@ -1,3 +1,6 @@
+<h3><b style="color: red;">Deprecated!!!</b><br>It is no longer supported soon. I recommend using the new package <a href="https://github.com/koirodev/prismium" target="_blank">prismium</a>. It contains Kordion and other packages.</h3>
+<hr>
+
 # Kordion
 
 **Kordion** is a library for quickly creating flexible accordions on a page using JavaScript. It allows you to create accordions with various settings and styles, as well as control them using JavaScript. <strong>Kordion uses vanilla JavaScript</strong> and does not depend on third-party libraries, which makes it lightweight and fast.
